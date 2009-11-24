@@ -14,6 +14,7 @@ end
 World do
   def app
     @app = Rack::Builder.new do
+      use Rack::Session::Cookie
       run Questionnaire::Application
     end
   end

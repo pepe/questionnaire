@@ -1,0 +1,16 @@
+%h1 Děkujeme za Vaše podněty a názory.
+
+%form{:action => 'save_final', :method => :post}
+  V případě, že byste rádi jakýmkoliv způsobem okomentovali dotazník a tím se podíleli na jeho budoucím zkvalitnění, máte prostor níže.
+  %br
+  %label{:for => 'note'} poznámka
+  %br
+  %textarea{:id => 'note', :name => 'questionnaire[note]'}
+  %br
+  Pokud budete mít zájem o zaslání výsledků tohoto průzkumu, vypište prosím níže Vaši emailovou adresu. Výsledky Vám budou zaslány po závěrečném zpracování dat. Vaše emailová adresa nebude použita pro žádné jiné účely.
+  %br
+  %label{:for => 'email'} email
+  %br
+  %input{:id => 'email', :name => 'questionnaire[email]'}
+  %br
+  %input{:id => :submit, :name => 'submit', :type => 'submit', :value => 'Dokončit dotazník a přejít na úvodní stránku'}

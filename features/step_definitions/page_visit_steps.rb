@@ -7,11 +7,11 @@ Given /^I am viewing '(.+)'$/ do |url|
 end
  
 Then /^I should see '([^']+)'$/ do |text|
-  response_body.should contain(Regexp.new(text, Regexp::MULTILINE))
+  response_body.should contain(text)
 end
 
 Then /^I should not see '(.+)'$/ do |text|
-  response_body.should_not contain(Regexp.new(text, Regexp::MULTILINE))
+  response_body.should_not contain(text)
 end
 
 Then /^I should see big '(.+)'$/ do |text|
@@ -28,7 +28,7 @@ When /^I press '(.*)'$/ do |name|
 end
 
 Then /^I choose '(.*)'$/ do |value|
-  choose(value.gsub(/ /, '')) 
+  choose(value) 
 end
 
 Given /^I will get mail$/ do
