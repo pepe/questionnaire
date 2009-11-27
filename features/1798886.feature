@@ -6,7 +6,7 @@ Feature: Create form with questions in two steps
 
   Scenario: First part questions
     Given I visit '/'
-    Then I follow 'Začít s dotazníkem'
+    Then I follow 'Pro vyplnění dotazníku prosím klikněte zde'
     And I should see 'Dotazník I. část'
     And I should see 'Jak často navštěvujete les v průměru ročně?'
     And I should see 'Jak dlouhou dobu obvykle trávíte návštěvou lesa?'

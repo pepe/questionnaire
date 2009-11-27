@@ -1,13 +1,18 @@
 %h1 Děkujeme za Vaše podněty a názory.
 
-%form{:action => 'save_final', :method => :post}
-  V případě, že byste rádi jakýmkoliv způsobem okomentovali dotazník a tím se podíleli na jeho budoucím zkvalitnění, máte prostor níže.
+%p
+  Unikátní kód Vašeho dotazníku je:
+  = @code
   %br
-  %label{:for => 'note'} poznámka
+  %a{:href => "/print/%s" % @code} Verze k tisku
+%form{:action => 'save_final', :method => :post}
+  %p Děkujeme za Váš čas, který jste věnovali vyplnění tohoto dotazníku. V případě, že byste rádi jakýmkoliv způsobem okomentovali dotazník a tím se podíleli na jeho budoucím zkvalitnění, máte prostor níže.
+  %br
+  %label{:for => 'note'} Komentář
   %br
   %textarea{:id => 'note', :name => 'questionnaire[note]'}
   %br
-  Pokud budete mít zájem o zaslání výsledků tohoto průzkumu, vypište prosím níže Vaši emailovou adresu. Výsledky Vám budou zaslány po závěrečném zpracování dat. Vaše emailová adresa nebude použita pro žádné jiné účely.
+  %p Pokud budete mít zájem o zaslání výsledků tohoto průzkumu, vypište prosím níže Vaši emailovou adresu. Výsledky Vám budou zaslány po závěrečném zpracování dat. Průzkum je zcela anonymní, Vaše emailová adresa nebude použita pro žádné jiné účely.
   %br
   %label{:for => 'email'} email
   %br

@@ -34,6 +34,7 @@ describe Questionnaire::Application do
       post '/save_second', 'questionnaire' => {'relation' => 'none'}
       last_response.should be_redirect
       session['questionnaire']['relation'].should == 'none'
+      session['code'].should_not be_empty
     end
 
     it "should render thanks page" do
@@ -45,6 +46,11 @@ describe Questionnaire::Application do
       post '/save_final', 'questionnaire' => {'email' => 'none'}
       last_response.should be_redirect
       session['questionnaire']['email'].should == 'none'
+    end
+
+    it "should show printable version of what was filled" do
+      get '/print/aaaaa'
+      last_response.should be_ok
     end
   end
 end
