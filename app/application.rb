@@ -1,5 +1,6 @@
-require 'sinatra/base'
-require 'haml'
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
+Bundler.require_env
+require 'moneta/file'
 
 module Questionnaire
   class Application < Sinatra::Base
