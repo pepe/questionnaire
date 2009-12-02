@@ -4,3 +4,5 @@ vendor/gems/specifications
 vendor/gems/doc
 vendor/gems/environment.rb
 bin/*
+.autotest
+questionnaires
