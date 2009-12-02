@@ -8,5 +8,3 @@ Feature: Add saving to database
     Given I fill in both parts of questionnaire
     Then I should see 'Unikátní kód Vašeho dotazníku je:'
     And I should see unique code
-    When I follow 'Verze k tisku'
-

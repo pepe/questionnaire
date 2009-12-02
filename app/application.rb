@@ -69,7 +69,7 @@ module Questionnaire
     # saves from session to cache
     def save_to_cache(questionnaire)
       save_to_session(questionnaire)
-      session['code'] ||= "%02x" % session['questionnaire'].hash
+      session['code'] ||= "Q%02x" % session['questionnaire'].hash
       @@cache[session['code']] = session['questionnaire']
     end
   end

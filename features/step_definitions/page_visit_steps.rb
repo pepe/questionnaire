@@ -43,7 +43,3 @@ When /^I select '(.+)' from '(.+)'$/ do |value, field|
   select(value, :from => field) 
 end
 
-Then /^I should see '([^']+)' icon '([^']+)'$/ do |type, name|
-  response_body.should have_selector('img', :src => "icons/#{type}/#{name}.png")
-end
-

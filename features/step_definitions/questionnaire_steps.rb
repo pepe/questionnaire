@@ -21,6 +21,6 @@ Given /^I fill in both parts of questionnaire$/ do
 end
 
 Then /^I should see unique code$/ do
-  response_body.should =~ /<#Q[0-9a-f]+>/
+  response_body.should =~ /\bQ[0-9a-f]+\b/
 end
 
