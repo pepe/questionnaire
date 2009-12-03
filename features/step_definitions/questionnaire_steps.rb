@@ -1,6 +1,7 @@
 Given /^I fill in both parts of questionnaire$/ do
-  Given "I visit '/first_part'"
-  Then "I choose 'vůbec'"
+  Given "I visit '/'"
+  Then "I follow 'Pro vyplnění dotazníku prosím klikněte zde'"
+  And "I choose 'vůbec'"
   And "I fill in '10' for 'hodin'"
   And "I select '1' from 'purpose_relaxation'"
   And "I select '1' from 'purpose_hobbitry'"
@@ -21,6 +22,6 @@ Given /^I fill in both parts of questionnaire$/ do
 end
 
 Then /^I should see unique code$/ do
-  response_body.should =~ /\bQ[0-9a-f]+\b/
+  response_body.should =~ /\b[0-9a-f]{40}\b/
 end
 

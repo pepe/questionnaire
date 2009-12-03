@@ -14,7 +14,7 @@ Feature: Create form with questions in two steps
     And I should see 'Které je Vaše oblíbené území lesa?'
 
   Scenario: Filling in frequency
-    Given I visit '/first_part'
+    Given I visit '/first_part/test'
     Then I choose 'vůbec'
     And I choose '1 až 2 x ročně'
     And I choose '1 x měsíčně'
@@ -23,11 +23,11 @@ Feature: Create form with questions in two steps
     And I fill in 'nikdy' for 'Jinak často'
 
   Scenario: Time spent
-    Given I visit '/first_part'
+    Given I visit '/first_part/test'
     Then I fill in '10' for 'hodin'
 
   Scenario: Selecting purpose
-    Given I visit '/first_part'
+    Given I visit '/first_part/test'
     Then I should see 'pro duševní a fyzickou relaxaci, rekreaci'
     And I select '1' from 'purpose_relaxation'
     And I select '5' from 'purpose_relaxation'
@@ -42,11 +42,11 @@ Feature: Create form with questions in two steps
     And I select '5' from 'purpose_fuel'
 
   Scenario: Favorite place
-    Given I visit '/first_part'
+    Given I visit '/first_part/test'
     Then I fill in 'nahore' for 'favorite_place'
 
   Scenario: Second part questions
-    Given I visit '/second_part'
+    Given I visit '/second_part/test'
     Then I should see 'Dotazník II. část'
     And I should see 'Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali?'
     And I should see 'Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa?'
@@ -54,15 +54,15 @@ Feature: Create form with questions in two steps
     And I should see 'Jaký je váš vztah k České zemědělské univerzitě v Praze?'
 
   Scenario: Once payment amount
-    Given I visit '/second_part'
+    Given I visit '/second_part/test'
     And I fill in '10' for 'once_payment'
 
   Scenario: Once receive amount
-    Given I visit '/second_part'
+    Given I visit '/second_part/test'
     Then I fill in '10' for 'once_receive'
 
   Scenario: Forrest importance
-    Given I visit '/second_part'
+    Given I visit '/second_part/test'
     Then I should see 'produkce a využití dříví'
     And I select '1' from 'important_wood'
     And I select '5' from 'important_wood'
@@ -86,13 +86,13 @@ Feature: Create form with questions in two steps
     And I select '5' from 'important_nature'
 
   Scenario: University relation
-    Given I visit '/second_part'
+    Given I visit '/second_part/test'
     Then I choose 'jsem zaměstnanec/zaměstnankyně'
     And I choose 'jsem student/studentka'
     And I choose 'žádný'
 
   Scenario: Full form
-    Given I visit '/first_part'
+    Given I visit '/first_part/test'
     Then I choose 'vůbec'
     Then I fill in '10' for 'hodin'
     And I select '1' from 'purpose_relaxation'

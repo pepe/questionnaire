@@ -1,6 +1,6 @@
 %h1 Dotazník II. část
 
-%form{:action => '/save_second', :method => :post}
+%form{:action => "/save_second/#{params[:uid]}", :method => :post}
   %ol
     %li
       %h2 Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali?

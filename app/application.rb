@@ -1,6 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
 Bundler.require_env
 require 'moneta/file'
+require 'digest/sha1'
 
 module Questionnaire
   QUESTIONNAIRE_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(QUESTIONNAIRE_ROOT)
@@ -23,54 +24,57 @@ module Questionnaire
     end
 
     get '/' do
+      @uid = generate_uid
       haml :index
     end
 
-    get '/first_part' do
+    get '/first_part/:uid' do
       haml :first_part
     end
 
-    post '/save_first' do
-      save_to_session(params['questionnaire'])
-      redirect '/second_part'
+    post '/save_first/:uid' do
+      save_to_cache(params[:uid], params['questionnaire'])
+      redirect "/second_part/#{params[:uid]}"
     end
 
-    get '/second_part' do
+    get '/second_part/:uid' do
       haml :second_part
     end
 
-    post '/save_second' do
-      save_to_cache(params['questionnaire'])
-      redirect '/thanks'
+    post '/save_second/:uid' do
+      save_to_cache(params[:uid], params['questionnaire'])
+      redirect "/thanks/#{params[:uid]}"
     end
 
-    get '/thanks' do
-      @code = session['code']
+    get '/thanks/:uid' do
       haml :thanks
     end
 
-    post '/save_final' do
-      save_to_cache(params['questionnaire'])
+    post '/save_final/:uid' do
+      save_to_cache(params[:uid], params['questionnaire'])
       redirect '/'
     end
 
-    get %r{\/print\/([0-9a-f]+)} do |id|
-      @questionnaire = @@cache[id]
+    get '/print/:uid' do 
+      @questionnaire = @@cache[params[:uid]]
       haml :print
     end
 
     private
-    # saves questionnaire to session
-    def save_to_session(questionnaire)
-      session['questionnaire'] ||= {}
-      session['questionnaire'].merge! questionnaire
+    # generates uniq code
+    def generate_uid
+      Digest::SHA1.hexdigest(Time.now.to_s).to_s
     end
 
     # saves from session to cache
-    def save_to_cache(questionnaire)
-      save_to_session(questionnaire)
-      session['code'] ||= "Q%02x" % session['questionnaire'].hash
-      @@cache[session['code']] = session['questionnaire']
+    def save_to_cache(uid, questionnaire)
+      # needed cause is bad to dump Hash with default proc
+      if @@cache.key?(uid)
+        questionnaire = @@cache[uid].merge(questionnaire) 
+      else
+        questionnaire = {}.merge(questionnaire)
+      end
+      @@cache[uid] = questionnaire
     end
   end
 end
