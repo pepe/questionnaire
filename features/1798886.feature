@@ -14,20 +14,14 @@ Feature: Create form with questions in two steps
 
   Scenario: Filling in frequency
     Given I started new questionnaire
-    And I choose 'vůbec'
-    And I choose '1 až 2 x ročně'
-    And I choose '1 x měsíčně'
-    And I choose '1 x týdně'
+    And I can choose 'vůbec'
+    And I can choose '1 až 2 x ročně'
+    And I can choose '1 x měsíčně'
+    And I can choose '1 x týdně'
     And I choose '2 až 3 x týdně'
     And I fill in 'nikdy' for 'Jinak často'
-
-  Scenario: Time spent
-    Given I started new questionnaire
-    Then I fill in '10' for 'hodin'
-
-  Scenario: Selecting purpose
-    Given I started new questionnaire
-    Then I should see 'pro duševní a fyzickou relaxaci, rekreaci'
+    And I fill in '10' for 'hodin'
+    And I should see 'pro duševní a fyzickou relaxaci, rekreaci'
     And I select '1' from 'purpose_relaxation'
     And I select '5' from 'purpose_relaxation'
     And I should see 'pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.)'
@@ -39,9 +33,6 @@ Feature: Create form with questions in two steps
     And I should see 'pro sběr paliva'
     And I select '1' from 'purpose_fuel'
     And I select '5' from 'purpose_fuel'
-
-  Scenario: Favorite place
-    Given I started new questionnaire
     Then I fill in 'nahore' for 'favorite_place'
 
   Scenario: Second part questions
@@ -63,31 +54,31 @@ Feature: Create form with questions in two steps
   Scenario: Forrest importance
     Given I filled first part of questionnaire
     Then I should see 'produkce a využití dříví'
-    And I select '1' from 'important_wood'
+    And I can select '1' from 'important_wood'
     And I select '5' from 'important_wood'
     And I should see 'produkce a sběr lesních plodin (včetně hub a léčivých rostlin)'
-    And I select '1' from 'important_gathering'
+    And I can select '1' from 'important_gathering'
     And I select '5' from 'important_gathering'
     And I should see 'vodohospodářské funkce'
-    And I select '1' from 'important_water'
+    And I can select '1' from 'important_water'
     And I select '5' from 'important_water'
     And I should see 'půdoochranné funkce'
-    And I select '1' from 'important_ground'
+    And I can select '1' from 'important_ground'
     And I select '5' from 'important_ground'
     And I should see 'klimatické funkce'
-    And I select '1' from 'important_climate'
+    And I can select '1' from 'important_climate'
     And I select '5' from 'important_climate'
     And I should see 'zdravotně hygienické funkce (rekreační, zdravotní)'
-    And I select '1' from 'important_health'
+    And I can select '1' from 'important_health'
     And I select '5' from 'important_health'
     And I should see 'přírodoochranné funkce'
-    And I select '1' from 'important_nature'
+    And I can select '1' from 'important_nature'
     And I select '5' from 'important_nature'
 
   Scenario: University relation
     Given I filled first part of questionnaire
-    Then I choose 'jsem zaměstnanec/zaměstnankyně'
-    And I choose 'jsem student/studentka'
+    Then I can choose 'jsem zaměstnanec/zaměstnankyně'
+    And I can choose 'jsem student/studentka'
     And I choose 'žádný'
 
   Scenario: Full form

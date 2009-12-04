@@ -43,3 +43,11 @@ When /^I select '(.+)' from '(.+)'$/ do |value, field|
   select(value, :from => field) 
 end
 
+When /^I can select '(.+)' from '(.+)'$/ do |value, field|
+  select(value, :from => field) 
+end
+
+Then /^I can choose '(.*)'$/ do |value|
+  choose(value) 
+end
+
