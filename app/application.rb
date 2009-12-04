@@ -1,7 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
 Bundler.require_env
-require 'digest/sha1'
-require 'couchrest'
 
 module Questionnaire
   QUESTIONNAIRE_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(QUESTIONNAIRE_ROOT)

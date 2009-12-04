@@ -1,7 +1,8 @@
 gem 'sinatra-sinatra', '0.10.1', :require_as => 'sinatra'
 gem 'haml', '2.2.6'
 gem 'rack', '1.0.0'
-gem 'moneta', '0.6.0'
+gem 'couchrest', '0.33'
+
 
 only :test do
   gem 'rack-test', '0.5.0', :require_as => 'rack/test'
