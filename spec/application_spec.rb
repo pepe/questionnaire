@@ -15,42 +15,46 @@ describe Questionnaire::Application do
 
   describe "Questionnaire" do
     before(:each) do
-      @@cache ||= Moneta::File.new(:path => File.join(File.dirname(__FILE__), '..', "questionnaires"))
-      @@cache.clear
+      @@cache ||= CouchRest.database!("http://127.0.0.1:5984/questionnaires")
+      @uid = @@cache.save_doc({:key => 'value'})['id']
+    end
+
+    after(:each) do
+           
     end
 
     it "should render first part of form" do
-      get '/first_part/test'
+      get '/first_part/' + @uid
       last_response.should be_ok
     end
 
     it "should save first part parameters" do
-      post '/save_first/test', 'questionnaire' => {'frequency' => 'none'}
+      post '/save_first/' + @uid, 'questionnaire' => {'frequency' => 'none'}
       last_response.should be_redirect
     end
 
     it "should render second part of form" do
-      get '/second_part/test'
+      get '/second_part/' + @uid
       last_response.should be_ok
     end
 
     it "should save second part parameters" do
-      post '/save_second/test', 'questionnaire' => {'relation' => 'none'}
+      post '/save_second/' + @uid, 'questionnaire' => {'relation' => 'none'}
       last_response.should be_redirect
     end
 
     it "should render thanks page" do
-      get '/thanks/test'
+      get '/thanks/' + @uid
       last_response.should be_ok
     end
 
     it "should save final part parameters" do
-      post '/save_final/test', 'questionnaire' => {'email' => 'none'}
+      post '/save_final/' + @uid, 'questionnaire' => {'email' => 'none'}
       last_response.should be_redirect
     end
 
     it "should show printable version of what was filled" do
-      @@cache['test'] = 
+      resp = @@cache.save_doc(
         {"start" => Time.now.strftime('%D %T'),
         "finish" => Time.now.strftime('%D %T'),
         "frequency" => "vůbec",
@@ -70,8 +74,8 @@ describe Questionnaire::Application do
         "important_climate" => "5",
         "important_health" => "5",
         "purpose_gathering" => "5",
-        "once_payment" => "10"}
-      get '/print/test'
+        "once_payment" => "10"})
+      get '/print/' + resp['id']
       last_response.should be_ok
     end
   end

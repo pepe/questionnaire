@@ -1,6 +1,10 @@
-Given /^I fill in both parts of questionnaire$/ do
+Given /^I started new questionnaire$/ do
   Given "I visit '/'"
   Then "I follow 'Pro vyplnění dotazníku prosím klikněte zde'"
+end
+
+Given /^I filled first part of questionnaire$/ do
+  Given "I started new questionnaire"
   And "I choose 'vůbec'"
   And "I fill in '10' for 'hodin'"
   And "I select '1' from 'purpose_relaxation'"
@@ -9,6 +13,10 @@ Given /^I fill in both parts of questionnaire$/ do
   And "I select '1' from 'purpose_fuel'"
   And "I fill in 'nahoře' for 'favorite_place'"
   And "I press 'Odeslat I. část'"
+end
+
+Given /^I fill in both parts of questionnaire$/ do
+  Given "I filled first part of questionnaire"
   And "I fill in '10' for 'once_payment'"
   And "I fill in '10' for 'once_receive'"
   And "I select '1' from 'important_wood'"
@@ -23,7 +31,7 @@ Given /^I fill in both parts of questionnaire$/ do
 end
 
 Then /^I should see unique code$/ do
-  response_body.should =~ /\b[0-9a-f]{40}\b/
+  response_body.should =~ /\b[0-9a-f]{32}\b/
 end
 
 Then /^I should see '(.+)' and time$/ do |text|

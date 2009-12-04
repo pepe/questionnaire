@@ -1,7 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
 Bundler.require_env
-require 'moneta/file'
 require 'digest/sha1'
+require 'couchrest'
 
 module Questionnaire
   QUESTIONNAIRE_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(QUESTIONNAIRE_ROOT)
@@ -20,21 +20,20 @@ module Questionnaire
     end
 
     before do
-      @@cache ||= Moneta::File.new(:path => File.join(File.dirname(__FILE__), '..', "questionnaires"))
+      @@cache ||= CouchRest.database!("http://127.0.0.1:5984/questionnaires")
     end
 
     get '/' do
-      @uid = generate_uid
+      @uid = save_to_cache({'start' => Time.now.strftime('%D %T')})
       haml :index
     end
 
     get '/first_part/:uid' do
-      save_to_cache(params[:uid], {'start' => Time.now.strftime('%D %T')})
       haml :first_part
     end
 
     post '/save_first/:uid' do
-      save_to_cache(params[:uid], params['questionnaire'])
+      save_to_cache(params['questionnaire'], params[:uid])
       redirect "/second_part/#{params[:uid]}"
     end
 
@@ -45,7 +44,7 @@ module Questionnaire
     post '/save_second/:uid' do
       questionnaire = params['questionnaire'].merge(
         {'finish' => Time.now.strftime('%D %T')})
-      save_to_cache(params[:uid], questionnaire)
+      save_to_cache(questionnaire, params[:uid])
       redirect "/thanks/#{params[:uid]}"
     end
 
@@ -54,12 +53,12 @@ module Questionnaire
     end
 
     post '/save_final/:uid' do
-      save_to_cache(params[:uid], params['questionnaire'])
+      save_to_cache(params['questionnaire'], params[:uid])
       redirect '/'
     end
 
     get '/print/:uid' do 
-      @questionnaire = @@cache[params[:uid]]
+      @questionnaire = @@cache.get(params[:uid])
       haml :print
     end
 
@@ -70,14 +69,15 @@ module Questionnaire
     end
 
     # saves from session to cache
-    def save_to_cache(uid, questionnaire)
+    # when uid is nil returns new
+    def save_to_cache(questionnaire, uid = nil)
       # needed cause is bad to dump Hash with default proc
-      if @@cache.key?(uid)
-        questionnaire = @@cache[uid].merge(questionnaire) 
+      if uid
+        questionnaire = @@cache.get(uid).merge(questionnaire) 
       else
         questionnaire = {}.merge(questionnaire)
       end
-      @@cache[uid] = questionnaire
+      @@cache.save_doc(questionnaire)['id']
     end
   end
 end
