@@ -4,23 +4,23 @@
   %ol
     %li
       %h2 Jak často navštěvujete les v průměru ročně?
-      %input{:id => 'frequency_none', :name => 'questionnaire[frequency]', :type => :radio, :value => 'none'}
+      %input{:id => 'frequency_none', :name => 'questionnaire[frequency]', :type => :radio, :value => 'vůbec'}
       %label{:for => 'frequency_none'} vůbec
       %br
-      %input{:id => 'frequency_yearly', :name => 'questionnaire[frequency]', :type => :radio, :value => 'yearly'}
+      %input{:id => 'frequency_yearly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 až 2 x ročně'}
       %label{:for => 'frequency_yearly'} 1 až 2 x ročně
       %br
-      %input{:id => 'frequency_monthly', :name => 'questionnaire[frequency]', :type => :radio, :value => 'monthly'}
+      %input{:id => 'frequency_monthly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 x měsíčně'}
       %label{:for => 'frequency_monthly'} 1 x měsíčně
       %br
-      %input{:id => 'frequency_weekly', :name => 'questionnaire[frequency]', :type => :radio, :value => 'weekly'}
+      %input{:id => 'frequency_weekly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 x týdně'}
       %label{:for => 'frequency_weekly'} 1 x týdně
       %br
-      %input{:id => 'frequency_daily', :name => 'questionnaire[frequency]', :type => :radio, :value => 'daily'}
+      %input{:id => 'frequency_daily', :name => 'questionnaire[frequency]', :type => :radio, :value => '2 až 3 x týdně'}
       %label{:for => 'frequency_daily'} 2 až 3 x týdně
       %br
       %label{:for => 'frequency_other'} Jinak často
-      %input{:id => 'frequency_other', :name => 'questionnaire[frequency]', :type => :text}
+      %input{:id => 'frequency_other', :name => 'questionnaire[frequency_other]', :type => :text}
       prosím vypište
     %li
       %h2 Jak dlouhou dobu obvykle trávíte návštěvou lesa?

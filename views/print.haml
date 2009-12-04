@@ -1,0 +1,29 @@
+Vyplněný dotazník
+= params[:uid]
+%p
+  ="Začátek: " + @questionnaire['start']
+  ="Konec: " + @questionnaire['start']
+%p
+  = "Jak často navštěvujete les v průměru ročně: " + @questionnaire['frequency']
+%p
+  = "Jak dlouhou dobu obvykle trávíte návštěvou lesa: " + @questionnaire['time_spent']
+%p
+  Za jakým účelem obvykle navštěvujete les:
+  %p
+    = "pro duševní a fyzickou relaxaci, rekreaci: " + @questionnaire['purpose_relaxation']
+    = "pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.): " + @questionnaire['purpose_hobbitry']
+    = "pro sběr lesních plodin (včetně léčivých rostlin): " + @questionnaire['purpose_gathering']
+    = "pro sběr paliva: " + @questionnaire['purpose_fuel']
+  = "Které je Vaše oblíbené území lesa: " + @questionnaire['favorite_place']
+  = "Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali: " + @questionnaire['once_payment']
+  = "Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa: " + @questionnaire['once_receive']
+  Jaká je podle vás významnost funkcí lesa v České republice:
+  %p
+    = "produkce a využití dříví: " + @questionnaire['important_wood']
+    = "produkce a sběr lesních plodin (včetně hub a léčivých rostlin): " + @questionnaire['important_water']
+    = "vodohospodářské funkce: " + @questionnaire['important_water']
+    = "půdoochranné funkce: " + @questionnaire['important_ground']
+    = "klimatické funkce: " + @questionnaire['important_climate']
+    = "zdravotně hygienické funkce (rekreační, zdravotní): " + @questionnaire['important_health']
+    = "přírodoochranné funkce: " + @questionnaire['important_nature']
+  = "Jaký je váš vztah k České zemědělské univerzitě v Praze: " + @questionnaire['relation']

@@ -4,7 +4,7 @@
   Unikátní kód Vašeho dotazníku je:
   = params[:uid]
   %br
-  %a{:href => "/print/%s" % @code} Verze k tisku
+  %a{:href => "/print/#{params[:uid]}"} Verze k tisku
 %form{:action => "/save_final/#{params[:uid]}", :method => :post}
   %p Děkujeme za Váš čas, který jste věnovali vyplnění tohoto dotazníku. V případě, že byste rádi jakýmkoliv způsobem okomentovali dotazník a tím se podíleli na jeho budoucím zkvalitnění, máte prostor níže.
   %br

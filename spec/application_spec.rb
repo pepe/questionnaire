@@ -15,7 +15,8 @@ describe Questionnaire::Application do
 
   describe "Questionnaire" do
     before(:each) do
-      Moneta::File.new(:path => File.join(File.dirname(__FILE__), '..', "questionnaires")).clear
+      @@cache ||= Moneta::File.new(:path => File.join(File.dirname(__FILE__), '..', "questionnaires"))
+      @@cache.clear
     end
 
     it "should render first part of form" do
@@ -49,10 +50,29 @@ describe Questionnaire::Application do
     end
 
     it "should show printable version of what was filled" do
+      @@cache['test'] = 
+        {"start" => Time.now.strftime('%D %T'),
+        "finish" => Time.now.strftime('%D %T'),
+        "frequency" => "vůbec",
+        "important_wood" => "5",
+        "important_gathering" => "5",
+        "frequency_other" => "",
+        "relation" => "none",
+        "once_receive" => "",
+        "time_spent" => "questionnaire[time_spent]",
+        "purpose_hobbitry" => "5",
+        "favorite_place" => "questionnaire[favorite_place]",
+        "important_ground" => "5",
+        "important_nature" => "5",
+        "purpose_fuel" => "5",
+        "purpose_relaxation" => "5",
+        "important_water" => "5",
+        "important_climate" => "5",
+        "important_health" => "5",
+        "purpose_gathering" => "5",
+        "once_payment" => "10"}
       get '/print/test'
       last_response.should be_ok
     end
   end
 end
-
-
