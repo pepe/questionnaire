@@ -29,6 +29,7 @@ module Questionnaire
     end
 
     get '/first_part/:uid' do
+      save_to_cache(params[:uid], {'start' => Time.now.strftime('%D %T')})
       haml :first_part
     end
 
@@ -42,7 +43,9 @@ module Questionnaire
     end
 
     post '/save_second/:uid' do
-      save_to_cache(params[:uid], params['questionnaire'])
+      questionnaire = params['questionnaire'].merge(
+        {'finish' => Time.now.strftime('%D %T')})
+      save_to_cache(params[:uid], questionnaire)
       redirect "/thanks/#{params[:uid]}"
     end
 
