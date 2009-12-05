@@ -62,8 +62,8 @@ module Questionnaire
     end
 
     get '/list' do
-      @questionnaires = $cache.documents['rows'].map do |d|
-        $cache.get(d['id'])
+      @questionnaires = $cache.documents(:include_docs => true)['rows'].map do |d|
+        d['doc']
       end.select do |d|
         d['start'] && d['finish']
       end
