@@ -5,8 +5,6 @@ require File.join(File.dirname(__FILE__), '..', 'app', 'application')
 Test::Unit::TestCase.send :include, Rack::Test::Methods
 describe Questionnaire::Application do
   include Questionnaire
-  
-  describe "Home page" do
 
   before(:all) do
     $cache = CouchRest.database!("http://127.0.0.1:5984/test-questionnaires")
@@ -19,12 +17,15 @@ describe Questionnaire::Application do
   after(:all) do
     $cache.delete!
   end
+
+  context "Home page" do
     it "should render page with basic informations" do
       get '/'
       last_response.should be_ok
     end
   end
 
+  context "Questionnaire" do
     it "should render first part of form" do
       get '/first_part/' + @uid
       last_response.should be_ok
@@ -54,9 +55,11 @@ describe Questionnaire::Application do
       post '/save_final/' + @uid, 'questionnaire' => {'email' => 'none'}
       last_response.should be_redirect
     end
+  end
 
+  context "Outputs" do
     it "should show printable version of what was filled" do
-      resp = @@cache.save_doc(
+      resp = $cache.save_doc(
         {"start" => Time.now.strftime('%D %T'),
         "finish" => Time.now.strftime('%D %T'),
         "frequency" => "vůbec",
@@ -78,6 +81,11 @@ describe Questionnaire::Application do
         "purpose_gathering" => "5",
         "once_payment" => "10"})
       get '/print/' + resp['id']
+      last_response.should be_ok
+    end
+
+    it "should render list of all filled in questionnaires" do
+      get '/list'     
       last_response.should be_ok
     end
   end

@@ -7,11 +7,3 @@ require 'spec/interop/test'
 def app
   @app ||= Sinatra.new Questionnaire::Application
 end
-
-def session
-  last_request.env['rack.session']
-end
-
-def cookies
-  last_request.cookies
-end

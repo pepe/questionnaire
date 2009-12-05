@@ -16,6 +16,10 @@ module Questionnaire
         end.reverse.join(' ')
       end
 
+      # links to questionnaire detail
+      def link_to(questionnaire)
+        "<a href='/print/%s'>%s</a>" % ([questionnaire['_id']] * 2)
+      end
     end
 
     get '/' do
@@ -57,10 +61,13 @@ module Questionnaire
       haml :print
     end
 
-    private
-    # generates uniq code
-    def generate_uid
-      Digest::SHA1.hexdigest(Time.now.to_s).to_s
+    get '/list' do
+      @questionnaires = $cache.documents['rows'].map do |d|
+        $cache.get(d['id'])
+      end.select do |d|
+        d['start'] && d['finish']
+      end
+      haml :list
     end
 
     private

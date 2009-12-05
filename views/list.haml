@@ -1,0 +1,9 @@
+%h1 Výpis všech dotazníků
+
+
+%h2= "Počet dotazníků v systému: %i" % @questionnaires.size
+
+%ol
+  - @questionnaires.each do |questionnaire|
+    %li
+      = "%s v %s" % [link_to(questionnaire), questionnaire['start']]
