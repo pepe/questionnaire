@@ -2,7 +2,6 @@ Given /^I started new questionnaire$/ do
   Given "I visit '/'"
   Then "I follow 'Pro vyplnění dotazníku prosím klikněte zde'"
 end
-
 Given /^I filled first part of questionnaire$/ do
   Given "I started new questionnaire"
   And "I choose 'vůbec'"
@@ -14,7 +13,6 @@ Given /^I filled first part of questionnaire$/ do
   And "I fill in 'nahoře' for 'favorite_place'"
   And "I press 'Odeslat I. část'"
 end
-
 Given /^I fill in both parts of questionnaire$/ do
   Given "I filled first part of questionnaire"
   And "I fill in '10' for 'once_payment'"
@@ -29,19 +27,15 @@ Given /^I fill in both parts of questionnaire$/ do
   And "I choose 'jsem student/studentka'"
   And "I press 'Odeslat II. část'"
 end
-
 Then /^I should see unique code$/ do
   response_body.should =~ /\b[0-9a-f]{32}\b/
 end
-
 Then /^I should see '(.+)' and time$/ do |text|
   response_body.should =~ /#{text} \d{2}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}/
 end
-
 Then /^I should see '(.+)' followed by number$/ do |text|
   response_body.should =~ /#{text} \d+/
 end
-
 When /^I follow unique code$/ do
   click_link /\b[0-9a-f]{32}\b/
 end

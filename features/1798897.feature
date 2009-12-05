@@ -13,5 +13,3 @@ Feature: Create thank-you page
     And I fill in 'example@example.org' for 'email'
     And I press 'Dokončit dotazník a přejít na úvodní stránku'
     Then I should see 'Základní informace o dotazníku'
-
-    

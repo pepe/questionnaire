@@ -12,7 +12,7 @@ Feature: Create form with questions in two steps
     And I should see 'Za jakým účelem obvykle navštěvujete les?'
     And I should see 'Které je Vaše oblíbené území lesa?'
 
-  Scenario: Filling in frequency
+  Scenario: First part of questionnaire
     Given I started new questionnaire
     And I can choose 'vůbec'
     And I can choose '1 až 2 x ročně'
@@ -43,17 +43,11 @@ Feature: Create form with questions in two steps
     And I should see 'Jaká je podle vás významnost funkcí lesa v České republice?'
     And I should see 'Jaký je váš vztah k České zemědělské univerzitě v Praze?'
 
-  Scenario: Once payment amount
-    Given I filled first part of questionnaire
-    And I fill in '10' for 'once_payment'
-
-  Scenario: Once receive amount
+  Scenario: Second part of questionnaire
     Given I filled first part of questionnaire
     Then I fill in '10' for 'once_receive'
-
-  Scenario: Forrest importance
-    Given I filled first part of questionnaire
-    Then I should see 'produkce a využití dříví'
+    And I fill in '10' for 'once_payment'
+    And I should see 'produkce a využití dříví'
     And I can select '1' from 'important_wood'
     And I select '5' from 'important_wood'
     And I should see 'produkce a sběr lesních plodin (včetně hub a léčivých rostlin)'
@@ -74,10 +68,7 @@ Feature: Create form with questions in two steps
     And I should see 'přírodoochranné funkce'
     And I can select '1' from 'important_nature'
     And I select '5' from 'important_nature'
-
-  Scenario: University relation
-    Given I filled first part of questionnaire
-    Then I can choose 'jsem zaměstnanec/zaměstnankyně'
+    And I can choose 'jsem zaměstnanec/zaměstnankyně'
     And I can choose 'jsem student/studentka'
     And I choose 'žádný'
 
