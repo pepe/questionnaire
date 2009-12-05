@@ -7,21 +7,23 @@ describe Questionnaire::Application do
   include Questionnaire
   
   describe "Home page" do
+
+  before(:all) do
+    $cache = CouchRest.database!("http://127.0.0.1:5984/test-questionnaires")
+  end
+
+  before(:each) do
+    @uid = $cache.save_doc({:key => 'value'})['id']
+  end
+
+  after(:all) do
+    $cache.delete!
+  end
     it "should render page with basic informations" do
       get '/'
       last_response.should be_ok
     end
   end
-
-  describe "Questionnaire" do
-    before(:each) do
-      @@cache ||= CouchRest.database!("http://127.0.0.1:5984/questionnaires")
-      @uid = @@cache.save_doc({:key => 'value'})['id']
-    end
-
-    after(:each) do
-           
-    end
 
     it "should render first part of form" do
       get '/first_part/' + @uid

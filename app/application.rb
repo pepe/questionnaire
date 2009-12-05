@@ -15,10 +15,7 @@ module Questionnaire
           "<option>%i</option>" % i
         end.reverse.join(' ')
       end
-    end
 
-    before do
-      @@cache ||= CouchRest.database!("http://127.0.0.1:5984/questionnaires")
     end
 
     get '/' do
@@ -56,7 +53,7 @@ module Questionnaire
     end
 
     get '/print/:uid' do 
-      @questionnaire = @@cache.get(params[:uid])
+      @questionnaire = $cache.get(params[:uid])
       haml :print
     end
 
@@ -66,16 +63,17 @@ module Questionnaire
       Digest::SHA1.hexdigest(Time.now.to_s).to_s
     end
 
+    private
     # saves from session to cache
     # when uid is nil returns new
     def save_to_cache(questionnaire, uid = nil)
       # needed cause is bad to dump Hash with default proc
       if uid
-        questionnaire = @@cache.get(uid).merge(questionnaire) 
+        questionnaire = $cache.get(uid).merge(questionnaire) 
       else
         questionnaire = {}.merge(questionnaire)
       end
-      @@cache.save_doc(questionnaire)['id']
+      $cache.save_doc(questionnaire)['id']
     end
   end
 end
