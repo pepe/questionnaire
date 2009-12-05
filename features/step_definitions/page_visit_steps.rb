@@ -7,13 +7,6 @@ end
 Then /^I should see '(.+)'$/ do |text|
   response_body.should contain(text)
 end
-Then /^I should not see '(.+)'$/ do |text|
-  response_body.should_not contain(text)
-end
-Then /^I should see big '(.+)'$/ do |text|
-  text = '<h1>[\s]*%s[\s]*<\/h1>' % text
-  response_body.should =~ Regexp.new(text)
-end
 Then /^I fill in '(.*)' for '(.*)'$/ do |value, field|
   fill_in(field, :with => value)
 end
