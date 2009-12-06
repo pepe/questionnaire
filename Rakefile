@@ -21,48 +21,33 @@ task :bootstrap do
       :list => {
         :map => "function(doc){if(doc[\"start\"] && doc[\"finish\"]){emit(doc[\"_id\"], doc[\"start\"])}}"
   }}})
-  @cache.bulk_save([
+  arr = []
+  def rand_choose(i)
+    (rand(i) + 1).to_s
+  end
+  10.times {arr << 
          {"start" => Time.now.strftime('%D %T'),
         "finish" => Time.now.strftime('%D %T'),
         "frequency" => "vůbec",
-        "important_wood" => "5",
-        "important_gathering" => "5",
+        "important_wood" => rand_choose(5),
+        "important_gathering" => rand_choose(5),
         "frequency_other" => "",
         "relation" => "none",
-        "once_receive" => "",
+        "once_receive" => "10",
+        "once_payment" => "10",
         "time_spent" => "questionnaire[time_spent]",
-        "purpose_hobbitry" => "5",
+        "purpose_hobbitry" => rand_choose(5),
         "favorite_place" => "questionnaire[favorite_place]",
-        "important_ground" => "5",
-        "important_nature" => "5",
-        "purpose_fuel" => "5",
-        "purpose_relaxation" => "5",
-        "important_water" => "5",
-        "important_climate" => "5",
-        "important_health" => "5",
-        "purpose_gathering" => "5",
-        "once_payment" => "10"},
-         {"start" => Time.now.strftime('%D %T'),
-        "finish" => Time.now.strftime('%D %T'),
-        "frequency" => "vůbec",
-        "important_wood" => "1",
-        "important_gathering" => "1",
-        "frequency_other" => "",
-        "relation" => "none",
-        "once_receive" => "",
-        "time_spent" => "questionnaire[time_spent]",
-        "purpose_hobbitry" => "1",
-        "favorite_place" => "questionnaire[favorite_place]",
-        "important_ground" => "1",
-        "important_nature" => "1",
-        "purpose_fuel" => "1",
-        "purpose_relaxation" => "1",
-        "important_water" => "1",
-        "important_climate" => "1",
-        "important_health" => "1",
-        "purpose_gathering" => "1",
-        "once_payment" => "10"} 
-  ])
+        "important_ground" => rand_choose(5),
+        "important_nature" => rand_choose(5),
+        "purpose_fuel" => rand_choose(5),
+        "purpose_relaxation" => rand_choose(5),
+        "important_water" => rand_choose(5),
+        "important_climate" => rand_choose(5),
+        "important_health" => rand_choose(5),
+        "purpose_gathering" => rand_choose(5)}
+  }
+  @cache.bulk_save(arr)
 end
 
 namespace :test do
