@@ -20,10 +20,6 @@ describe Questionnaire::Application do
       })
   end
 
-  before(:each) do
-    @uid = @db.save_doc({:key => 'value'})['id']
-  end
-
   context "Home page" do
     it "should render page with basic informations" do
       get '/'
@@ -32,6 +28,10 @@ describe Questionnaire::Application do
   end
 
   context "Questionnaire" do
+    before(:each) do
+      @uid = @db.save_doc({:key => 'value'})['id']
+    end
+
     it "should render first part of form" do
       get '/first_part/' + @uid
       last_response.should be_ok
@@ -64,8 +64,8 @@ describe Questionnaire::Application do
   end
 
   context "Outputs" do
-    it "should show printable version of what was filled" do
-      resp = @db.save_doc(
+    before(:all) do
+      @uid = @db.save_doc(
         {"start" => Time.now.strftime('%D %T'),
         "finish" => Time.now.strftime('%D %T'),
         "frequency" => "vůbec",
@@ -85,8 +85,11 @@ describe Questionnaire::Application do
         "important_climate" => "5",
         "important_health" => "5",
         "purpose_gathering" => "5",
-        "once_payment" => "10"})
-      get '/print/' + resp['id']
+        "once_payment" => "10"})['id']
+    end
+
+    it "should show printable version of what was filled" do
+      get '/print/' + @uid
       last_response.should be_ok
     end
 
