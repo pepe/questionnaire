@@ -14,14 +14,14 @@ task :start => 'server:start'
 
 
 task :bootstrap do
-  $cache = CouchRest.database!("http://127.0.0.1:5984/questionnaires")
-  $cache.recreate!
-  $cache.save_doc({ "_id" => "_design/all",
+  @cache = CouchRest.database!("http://127.0.0.1:5984/questionnaires")
+  @cache.recreate!
+  @cache.save_doc({ "_id" => "_design/all",
     :views => {
       :list => {
         :map => "function(doc){if(doc[\"start\"] && doc[\"finish\"]){emit(doc[\"_id\"], doc[\"start\"])}}"
   }}})
-  $cache.bulk_save([
+  @cache.bulk_save([
          {"start" => Time.now.strftime('%D %T'),
         "finish" => Time.now.strftime('%D %T'),
         "frequency" => "vůbec",

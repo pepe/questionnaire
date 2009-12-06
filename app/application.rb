@@ -1,5 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
 Bundler.require_env
+require 'app/lib/database'
 
 module Questionnaire
   QUESTIONNAIRE_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(QUESTIONNAIRE_ROOT)
@@ -7,6 +8,10 @@ module Questionnaire
     enable :static, :sessions
     set :root, QUESTIONNAIRE_ROOT
     set :public, File.join(QUESTIONNAIRE_ROOT, '/public')
+
+    before do
+      @db = Database.connection
+    end
 
     helpers do
       # returns five reversed options 
@@ -23,7 +28,7 @@ module Questionnaire
     end
 
     get '/' do
-      @uid = save_to_cache({'start' => Time.now.strftime('%D %T')})
+      @uid = save_to_db({'start' => Time.now.strftime('%D %T')})
       haml :index
     end
 
@@ -32,7 +37,7 @@ module Questionnaire
     end
 
     post '/save_first/:uid' do
-      save_to_cache(params['questionnaire'], params[:uid])
+      save_to_db(params['questionnaire'], params[:uid])
       redirect "/second_part/#{params[:uid]}"
     end
 
@@ -43,7 +48,7 @@ module Questionnaire
     post '/save_second/:uid' do
       questionnaire = params['questionnaire'].merge(
         {'finish' => Time.now.strftime('%D %T')})
-      save_to_cache(questionnaire, params[:uid])
+      save_to_db(questionnaire, params[:uid])
       redirect "/thanks/#{params[:uid]}"
     end
 
@@ -52,12 +57,12 @@ module Questionnaire
     end
 
     post '/save_final/:uid' do
-      save_to_cache(params['questionnaire'], params[:uid])
+      save_to_db(params['questionnaire'], params[:uid])
       redirect '/'
     end
 
     get '/print/:uid' do 
-      @questionnaire = $cache.get(params[:uid])
+      @questionnaire = @db.get(params[:uid])
       haml :print
     end
 
@@ -67,21 +72,21 @@ module Questionnaire
     end
 
     private
-    # saves from session to cache
+    # saves from session to db
     # when uid is nil returns new
-    def save_to_cache(questionnaire, uid = nil)
+    def save_to_db(questionnaire, uid = nil)
       # needed cause is bad to dump Hash with default proc
       if uid
-        questionnaire = $cache.get(uid).merge(questionnaire) 
+        questionnaire = @db.get(uid).merge(questionnaire) 
       else
         questionnaire = {}.merge(questionnaire)
       end
-      $cache.save_doc(questionnaire)['id']
+      @db.save_doc(questionnaire)['id']
     end
 
     # list all documents which have start and finish
     def list_questionnaires
-      $cache.view('all/list')['rows']
+      @db.view('all/list')['rows']
     end
   end
 end

@@ -9,7 +9,7 @@ end
 World do
   def app
     @app = Rack::Builder.new do
-      $cache = CouchRest.database!("http://127.0.0.1:5984/test-questionnaires")
+      Questionnaire::Database.environment = :test
       use Rack::Session::Cookie
       run Questionnaire::Application
     end

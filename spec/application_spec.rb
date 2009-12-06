@@ -7,9 +7,10 @@ describe Questionnaire::Application do
   include Questionnaire
 
   before(:all) do
-    $cache = CouchRest.database!("http://127.0.0.1:5984/test-questionnaires")
-    $cache.recreate!
-    $cache.save_doc({
+    Questionnaire::Database.environment = :net
+    @db = Questionnaire::Database.connection
+    @db.recreate!
+    @db.save_doc({
       "_id" => "_design/all", 
       :views => {
         :list => {
@@ -20,7 +21,7 @@ describe Questionnaire::Application do
   end
 
   before(:each) do
-    @uid = $cache.save_doc({:key => 'value'})['id']
+    @uid = @db.save_doc({:key => 'value'})['id']
   end
 
   context "Home page" do
@@ -64,7 +65,7 @@ describe Questionnaire::Application do
 
   context "Outputs" do
     it "should show printable version of what was filled" do
-      resp = $cache.save_doc(
+      resp = @db.save_doc(
         {"start" => Time.now.strftime('%D %T'),
         "finish" => Time.now.strftime('%D %T'),
         "frequency" => "vůbec",
