@@ -6,4 +6,4 @@
 %ol
   - @questionnaires.each do |questionnaire|
     %li
-      = "%s v %s" % [link_to(questionnaire), questionnaire['start']]
+      = "%s v %s" % [link_to(questionnaire), questionnaire['value']]

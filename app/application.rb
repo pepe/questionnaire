@@ -18,7 +18,7 @@ module Questionnaire
 
       # links to questionnaire detail
       def link_to(questionnaire)
-        "<a href='/print/%s'>%s</a>" % ([questionnaire['_id']] * 2)
+        "<a href='/print/%s'>%s</a>" % ([questionnaire['id']] * 2)
       end
     end
 
@@ -62,11 +62,7 @@ module Questionnaire
     end
 
     get '/list' do
-      @questionnaires = $cache.documents(:include_docs => true)['rows'].map do |d|
-        d['doc']
-      end.select do |d|
-        d['start'] && d['finish']
-      end
+      @questionnaires = list_questionnaires
       haml :list
     end
 
@@ -81,6 +77,11 @@ module Questionnaire
         questionnaire = {}.merge(questionnaire)
       end
       $cache.save_doc(questionnaire)['id']
+    end
+
+    # list all documents which have start and finish
+    def list_questionnaires
+      $cache.view('all/list')['rows']
     end
   end
 end

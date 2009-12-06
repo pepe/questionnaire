@@ -39,3 +39,7 @@ end
 When /^I follow unique code$/ do
   click_link /\b[0-9a-f]{32}\b/
 end
+Given /^I know 2 questionnaires were filled in$/ do
+  2.times {Given "I fill in both parts of questionnaire"}
+end
+

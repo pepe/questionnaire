@@ -8,14 +8,19 @@ describe Questionnaire::Application do
 
   before(:all) do
     $cache = CouchRest.database!("http://127.0.0.1:5984/test-questionnaires")
+    $cache.recreate!
+    $cache.save_doc({
+      "_id" => "_design/all", 
+      :views => {
+        :list => {
+          :map => "function(doc){if(doc[\"start\"] && doc[\"finish\"]){emit(doc[\"_id\"], doc[\"start\"])}}"
+          }
+        }
+      })
   end
 
   before(:each) do
     @uid = $cache.save_doc({:key => 'value'})['id']
-  end
-
-  after(:all) do
-    $cache.delete!
   end
 
   context "Home page" do
