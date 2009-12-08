@@ -3,6 +3,10 @@ Bundler.require_env :test
 
 require 'spec/interop/test'
 
+require 'app/lib/database'
+
+Questionnaire::Database.environment = :test
+
 # return app for rack test
 def app
   @app ||= Sinatra.new Questionnaire::Application

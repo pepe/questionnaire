@@ -8,16 +8,7 @@ describe Questionnaire::Application do
 
   before(:all) do
     Questionnaire::Database.environment = :test
-    @db = Questionnaire::Database.connection
-    @db.recreate!
-    @db.save_doc({
-      "_id" => "_design/all", 
-      :views => {
-        :list => {
-          :map => "function(doc){if(doc[\"start\"] && doc[\"finish\"]){emit(doc[\"_id\"], doc[\"start\"])}}"
-          }
-        }
-      })
+    Questionnaire::Database.connection.recreate!
   end
 
   context "Home page" do
@@ -29,7 +20,9 @@ describe Questionnaire::Application do
 
   context "Questionnaire" do
     before(:each) do
-      @uid = @db.save_doc({:key => 'value'})['id']
+      @sheet = Questionnaire::Sheet.start_new
+      @sheet.save
+      @uid = @sheet['_id']
     end
 
     it "should render first part of form" do
@@ -64,10 +57,10 @@ describe Questionnaire::Application do
   end
 
   context "Outputs" do
-    before(:all) do
-      @uid = @db.save_doc(
-        {"start" => Time.now.strftime('%D %T'),
-        "finish" => Time.now.strftime('%D %T'),
+    before(:each) do
+      @sheet = Questionnaire::Sheet.start_new
+      @sheet.update_attributes(
+        {"finished_at" => Time.now,
         "frequency" => "vůbec",
         "important_wood" => "5",
         "important_gathering" => "5",
@@ -85,7 +78,8 @@ describe Questionnaire::Application do
         "important_climate" => "5",
         "important_health" => "5",
         "purpose_gathering" => "5",
-        "once_payment" => "10"})['id']
+        "once_payment" => "10"})
+      @uid = @sheet['_id']
     end
 
     it "should show printable version of what was filled" do

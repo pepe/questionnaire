@@ -1,6 +1,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
 Bundler.require_env
 require 'app/lib/database'
+require 'app/model/sheet'
 
 module Questionnaire
   QUESTIONNAIRE_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(QUESTIONNAIRE_ROOT)
@@ -8,10 +9,6 @@ module Questionnaire
     enable :static, :sessions
     set :root, QUESTIONNAIRE_ROOT
     set :public, File.join(QUESTIONNAIRE_ROOT, '/public')
-
-    before do
-      @db = Database.connection
-    end
 
     helpers do
       # returns five reversed options 
@@ -23,12 +20,15 @@ module Questionnaire
 
       # links to questionnaire detail
       def link_to(questionnaire)
-        "<a href='/print/%s'>%s</a>" % ([questionnaire['id']] * 2)
+        "<a href='/print/%s'>%s</a>" % ([questionnaire['_id']] * 2)
       end
     end
 
     get '/' do
-      @uid = save_to_db({'start' => Time.now.strftime('%D %T')})
+      sheet = Sheet.start_new
+      sheet.save
+      @uid = sheet['_id']
+      ['_id']
       haml :index
     end
 
@@ -37,7 +37,8 @@ module Questionnaire
     end
 
     post '/save_first/:uid' do
-      save_to_db(params['questionnaire'], params[:uid])
+      @sheet = Sheet.get(params['uid'])
+      @sheet.update_attributes(params['questionnaire'])
       redirect "/second_part/#{params[:uid]}"
     end
 
@@ -46,9 +47,9 @@ module Questionnaire
     end
 
     post '/save_second/:uid' do
-      questionnaire = params['questionnaire'].merge(
-        {'finish' => Time.now.strftime('%D %T')})
-      save_to_db(questionnaire, params[:uid])
+      @sheet = Sheet.get(params['uid'])
+      @sheet.finish
+      @sheet.update_attributes(params['questionnaire'])
       redirect "/thanks/#{params[:uid]}"
     end
 
@@ -57,36 +58,19 @@ module Questionnaire
     end
 
     post '/save_final/:uid' do
-      save_to_db(params['questionnaire'], params[:uid])
+      @sheet = Sheet.get(params['uid'])
+      @sheet.update_attributes(params['questionnaire'])
       redirect '/'
     end
 
     get '/print/:uid' do 
-      @questionnaire = @db.get(params[:uid])
+      @questionnaire = Sheet.get(params[:uid])
       haml :print
     end
 
     get '/list' do
-      @questionnaires = list_questionnaires
+      @questionnaires = Sheet.all
       haml :list
-    end
-
-    private
-    # saves from session to db
-    # when uid is nil returns new
-    def save_to_db(questionnaire, uid = nil)
-      # needed cause is bad to dump Hash with default proc
-      if uid
-        questionnaire = @db.get(uid).merge(questionnaire) 
-      else
-        questionnaire = {}.merge(questionnaire)
-      end
-      @db.save_doc(questionnaire)['id']
-    end
-
-    # list all documents which have start and finish
-    def list_questionnaires
-      @db.view('all/list')['rows']
     end
   end
 end

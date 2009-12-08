@@ -1,34 +1,34 @@
 %h1 Vyplněný dotazník
 = params[:uid]
 %p
-  ="Začátek: " + @questionnaire['start']
-  ="Konec: " + @questionnaire['start']
+  ="Začátek: %s" % @questionnaire.started_at
+  ="Konec: %s" % @questionnaire.finished_at
 %p
-  = "Jak často navštěvujete les v průměru ročně: " + @questionnaire['frequency']
+  = "Jak často navštěvujete les v průměru ročně: %s" % @questionnaire.frequency
 %p
-  = "Jak dlouhou dobu obvykle trávíte návštěvou lesa: " + @questionnaire['time_spent']
+  = "Jak dlouhou dobu obvykle trávíte návštěvou lesa: %s" % @questionnaire.time_spent
 %p
   Za jakým účelem obvykle navštěvujete les:
   %ul
-    %li= "pro duševní a fyzickou relaxaci, rekreaci: " + @questionnaire['purpose_relaxation']
-    %li= "pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.): " + @questionnaire['purpose_hobbitry']
-    %li= "pro sběr lesních plodin (včetně léčivých rostlin): " + @questionnaire['purpose_gathering']
-    %li= "pro sběr paliva: " + @questionnaire['purpose_fuel']
+    %li= "pro duševní a fyzickou relaxaci, rekreaci: %s" % @questionnaire.purpose_relaxation
+    %li= "pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.): %s" % @questionnaire.purpose_hobbitry
+    %li= "pro sběr lesních plodin (včetně léčivých rostlin): %s" % @questionnaire.purpose_gathering
+    %li= "pro sběr paliva: %s" % @questionnaire.purpose_fuel
 %p
-  = "Které je Vaše oblíbené území lesa: " + @questionnaire['favorite_place']
+  = "Které je Vaše oblíbené území lesa: %s" % @questionnaire.favorite_place
 %p
-  = "Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali: " + @questionnaire['once_payment']
+  = "Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali: %s" % @questionnaire.once_payment
 %p
-  = "Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa: " + @questionnaire['once_receive']
+  = "Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa: %s" % @questionnaire.once_receive
 %p
   Jaká je podle vás významnost funkcí lesa v České republice:
   %ul
-    %li= "produkce a využití dříví: " + @questionnaire['important_wood']
-    %li= "produkce a sběr lesních plodin (včetně hub a léčivých rostlin): " + @questionnaire['important_water']
-    %li= "vodohospodářské funkce: " + @questionnaire['important_water']
-    %li= "půdoochranné funkce: " + @questionnaire['important_ground']
-    %li= "klimatické funkce: " + @questionnaire['important_climate']
-    %li= "zdravotně hygienické funkce (rekreační, zdravotní): " + @questionnaire['important_health']
-    %li= "přírodoochranné funkce: " + @questionnaire['important_nature']
+    %li= "produkce a využití dříví: %s" % @questionnaire.important_wood
+    %li= "produkce a sběr lesních plodin (včetně hub a léčivých rostlin): %s" % @questionnaire.important_water
+    %li= "vodohospodářské funkce: %s" % @questionnaire.important_water
+    %li= "půdoochranné funkce: %s" % @questionnaire.important_ground
+    %li= "klimatické funkce: %s" % @questionnaire.important_climate
+    %li= "zdravotně hygienické funkce (rekreační, zdravotní): %s" % @questionnaire.important_health
+    %li= "přírodoochranné funkce: %s" % @questionnaire.important_nature
 %p
-  = "Jaký je váš vztah k České zemědělské univerzitě v Praze: " + @questionnaire['relation']
+  = "Jaký je váš vztah k České zemědělské univerzitě v Praze: %s" % @questionnaire.relation
