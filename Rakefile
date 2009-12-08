@@ -112,10 +112,6 @@ namespace :stats do
   end
 end
 
-# namespace :inploy do
-  # import 'vendor/plugins/inploy/lib/tasks/inploy.rake'
-# end
-
 namespace :server do
   desc "Start server in production on Thin, port 4500"
   task :start do
@@ -126,5 +122,9 @@ namespace :server do
   task :stop do
     exec "thin --pid tmp/pids/thin.pid stop"
   end
+end
+
+namespace :inploy do
+  import 'vendor/plugins/inploy/lib/tasks/inploy.rake'
 end
 
