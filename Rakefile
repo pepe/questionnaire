@@ -1,7 +1,5 @@
 QUESTIONNAIRE_ROOT = '.'
 
-require File.expand_path(File.join(File.dirname(__FILE__), 'vendor', 'gems', 'environment'))
-Bundler.require_env
 require 'rake'
 require 'spec/rake/spectask'
 require 'cucumber/rake/task'
@@ -9,11 +7,13 @@ require 'cucumber/rake/task'
 desc "Runs all specs"
 task :default => 'test:spec'
 
-desc "Run tests"
+desc "Run server"
 task :start => 'server:start'
 
 
 task :bootstrap do
+  require File.expand_path(File.join(File.dirname(__FILE__), 'vendor', 'gems', 'environment'))
+  Bundler.require_env
   @cache = CouchRest.database!("http://127.0.0.1:5984/questionnaires")
   @cache.recreate!
   @cache.save_doc({ "_id" => "_design/all",
@@ -27,7 +27,7 @@ task :bootstrap do
   end
   10.times {arr << 
          {"start" => Time.now.strftime('%D %T'),
-        "finish" => Time.now.strftime('%D %T'),
+        "finish" => (Time.now + rand_choose(10).to_i * 60).strftime('%D %T'),
         "frequency" => "vůbec",
         "important_wood" => rand_choose(5),
         "important_gathering" => rand_choose(5),
