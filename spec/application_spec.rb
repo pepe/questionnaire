@@ -7,7 +7,7 @@ describe Questionnaire::Application do
   include Questionnaire
 
   before(:all) do
-    Questionnaire::Database.environment = :net
+    Questionnaire::Database.environment = :test
     @db = Questionnaire::Database.connection
     @db.recreate!
     @db.save_doc({
