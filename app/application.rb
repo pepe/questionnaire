@@ -8,7 +8,7 @@ module Questionnaire
   class Application < Sinatra::Base
     enable :static, :sessions
     set :root, QUESTIONNAIRE_ROOT
-    set :public, File.join(QUESTIONNAIRE_ROOT, '/public')
+    set :public, File.join(QUESTIONNAIRE_ROOT, 'public')
     set :views, File.join(QUESTIONNAIRE_ROOT, 'app', 'views')
 
     helpers do

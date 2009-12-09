@@ -3,7 +3,6 @@ require File.join(File.dirname(__FILE__), '..', '..', 'app', 'application')
 
 Bundler.require_env :test
 
-Questionnaire::Application.set :environment, :development
 Webrat.configure do |config|
   config.mode = :rack
 end
