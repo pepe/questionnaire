@@ -1,3 +1,4 @@
+require 'spec/spec_helper'
 require File.join(File.dirname(__FILE__), '..', '..', 'app', 'application')
 
 Bundler.require_env :test
@@ -9,7 +10,6 @@ end
 World do
   def app
     @app = Rack::Builder.new do
-      Questionnaire::Database.environment = :test
       use Rack::Session::Cookie
       run Questionnaire::Application
     end
@@ -18,4 +18,3 @@ World do
   include Webrat::Methods
   include Webrat::Matchers
 end
-
