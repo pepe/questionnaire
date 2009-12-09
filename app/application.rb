@@ -28,7 +28,6 @@ module Questionnaire
       sheet = Sheet.start_new
       sheet.save
       @uid = sheet['_id']
-      ['_id']
       haml :index
     end
 
