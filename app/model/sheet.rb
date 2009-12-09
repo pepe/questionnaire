@@ -3,28 +3,36 @@ module Questionnaire
   class Sheet < CouchRest::ExtendedDocument
     use_database Database.connection
     timestamps!
-    property :started_at
-    property :finished_at
+    property :started_at, :cast_as => 'Time'
+    property :finished_at, :cast_as => 'Time'
     property :frequency
-    property :important_wood
-    property :important_gathering
     property :frequency_other
-    property :relation
-    property :once_receive
-    property :time_spent
-    property :purpose_hobbitry
-    property :favorite_place
-    property :important_ground
-    property :important_nature
     property :purpose_fuel
     property :purpose_relaxation
+    property :purpose_gathering
+    property :purpose_hobbitry
+    property :favorite_place
+    property :time_spent
+    property :once_receive
+    property :once_payment
+    property :important_ground
+    property :important_nature
+    property :important_wood
+    property :important_gathering
     property :important_water
     property :important_climate
     property :important_health
-    property :purpose_gathering
-    property :once_payment
+    property :relation
     property :email
     property :note
+
+    view_by :finished,
+        :map =>
+          "function(doc){
+            if(doc[\"started_at\"] && doc[\"finished_at\"]){
+              emit(doc[\"_id\"], doc[\"finished_at\"])
+            }
+          }"
 
     # starts questionnaire
     def start

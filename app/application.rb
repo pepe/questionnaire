@@ -69,7 +69,7 @@ module Questionnaire
     end
 
     get '/list' do
-      @questionnaires = Sheet.all
+      @questionnaires = Sheet.by_finished
       haml :list
     end
   end

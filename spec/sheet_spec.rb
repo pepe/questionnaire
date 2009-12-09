@@ -59,4 +59,37 @@ describe "Sheet" do
       @sheet.update_attributes({:note => 'note'})
     end
   end
+
+  context "Views" do
+    before(:each) do
+      Questionnaire::Database.connection.recreate!
+      10.times {
+        sheet = Questionnaire::Sheet.start_new
+        sheet.finish
+        sheet.update_attributes({"frequency" => "vůbec",
+          "frequency_other" => "jak rikam",
+          "relation" => "none",
+          "time_spent" => "questionnaire[time_spent]",
+          "purpose_gathering" => "5",
+          "purpose_hobbitry" => "5",
+          "purpose_fuel" => "5",
+          "purpose_relaxation" => "5",
+          "favorite_place" => "questionnaire[favorite_place]",
+          "once_receive" => "10",
+          "once_payment" => "10",
+          "important_nature" => "5",
+          "important_wood" => "5",
+          "important_gathering" => "5",
+          "important_water" => "5",
+          "important_climate" => "5",
+          "important_health" => "5",
+          "important_ground" => "5"})
+      }
+    end
+
+    it "should return all finished " do
+      @sheets = Questionnaire::Sheet.by_finished
+      @sheets.size.should == 10
+    end
+  end
 end
