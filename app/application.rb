@@ -9,6 +9,7 @@ module Questionnaire
     enable :static, :sessions
     set :root, QUESTIONNAIRE_ROOT
     set :public, File.join(QUESTIONNAIRE_ROOT, '/public')
+    set :views, File.join(QUESTIONNAIRE_ROOT, 'app', 'views')
 
     helpers do
       # returns five reversed options 
