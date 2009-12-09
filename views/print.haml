@@ -1,8 +1,8 @@
 %h1 Vyplněný dotazník
 = params[:uid]
 %p
-  ="Začátek: %s" % @questionnaire.started_at
-  ="Konec: %s" % @questionnaire.finished_at
+  ="Začátek: %s" % @questionnaire.started_at.strftime("%F %T")
+  ="Konec: %s" % @questionnaire.finished_at.strftime("%F %T")
 %p
   = "Jak často navštěvujete les v průměru ročně: %s" % @questionnaire.frequency
 %p

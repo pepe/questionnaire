@@ -31,7 +31,7 @@ Then /^I should see unique code$/ do
   response_body.should =~ /\b[0-9a-f]{32}\b/
 end
 Then /^I should see '(.+)' and time$/ do |text|
-  response_body.should =~ /#{text} \d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}/
+  response_body.should =~ /#{text} \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
 end
 Then /^I should see '(.+)' followed by number$/ do |text|
   response_body.should =~ /#{text} \d+/
