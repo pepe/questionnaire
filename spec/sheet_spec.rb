@@ -63,9 +63,8 @@ describe "Sheet" do
   context "Views" do
     before(:each) do
       Questionnaire::Database.connection.recreate!
-      10.times {
+      10.times {|i|
         sheet = Questionnaire::Sheet.start_new
-        sheet.finish
         sheet.update_attributes({"frequency" => "vůbec",
           "frequency_other" => "jak rikam",
           "relation" => "none",
@@ -83,13 +82,20 @@ describe "Sheet" do
           "important_water" => "5",
           "important_climate" => "5",
           "important_health" => "5",
-          "important_ground" => "5"})
+          "important_ground" => "5",
+          "finished_at" => Time.now - (i * 60)
+        })
       }
     end
 
     it "should return all finished " do
       @sheets = Questionnaire::Sheet.by_finished
       @sheets.size.should == 10
+    end
+
+    it "should return all finished ordered by finish time" do
+      @sheets = Questionnaire::Sheet.by_finished
+      @sheets.sort{|a,b| a.finished_at <=> b.finished_at}.map{|q| q['_id']}.should == @sheets.map{|q| q['_id']}
     end
   end
 end

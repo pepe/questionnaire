@@ -30,7 +30,7 @@ module Questionnaire
         :map =>
           "function(doc){
             if(doc[\"started_at\"] && doc[\"finished_at\"]){
-              emit(doc[\"_id\"], doc[\"finished_at\"])
+              emit(doc[\"finished_at\"], doc)
             }
           }"
 
