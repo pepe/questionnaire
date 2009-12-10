@@ -9,7 +9,6 @@ Feature: Add saving to database
     Then I should see 'Unikátní kód Vašeho dotazníku je:'
     And I should see unique code
     When I follow 'Verze k tisku'
-    And I should see unique code
     And I should see 'Vyplněný dotazník'
     And I should see 'Jak často navštěvujete les v průměru ročně: vůbec'
     And I should see 'Jak dlouhou dobu obvykle trávíte návštěvou lesa: 10'
