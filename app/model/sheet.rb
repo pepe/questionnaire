@@ -41,55 +41,14 @@ module Questionnaire
             }
           }"
 
-    view_by :frequency_stats,
-        :map => SUMA_MAP % "frequency",
+    %w(frequency purpose_hobbitry purpose_gathering purpose_relaxation
+    purpose_fuel important_nature important_wood important_gathering 
+    important_water important_climate important_health
+    important_ground).each {|attribute|
+      view_by :"#{attribute}_stats",
+        :map => SUMA_MAP % attribute,
         :reduce => SUMA_REDUCE
-          
-
-    view_by :purpose_gathering_stats,
-        :map => SUMA_MAP % "purpose_gathering",
-        :reduce => SUMA_REDUCE
-
-    view_by :purpose_hobbitry_stats,
-        :map => SUMA_MAP % "purpose_hobbitry",
-        :reduce => SUMA_REDUCE
-
-    view_by :purpose_fuel_stats,
-        :map => SUMA_MAP % "purpose_fuel",
-        :reduce => SUMA_REDUCE
-
-    view_by :purpose_relaxation_stats,
-        :map => SUMA_MAP % "purpose_relaxation",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_nature_stats,
-        :map => SUMA_MAP % "important_nature",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_wood_stats,
-        :map => SUMA_MAP % "important_wood",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_gathering_stats,
-        :map => SUMA_MAP % "important_gathering",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_water_stats,
-        :map => SUMA_MAP % "important_water",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_climate_stats,
-        :map => SUMA_MAP % "important_climate",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_health_stats,
-        :map => SUMA_MAP % "important_health",
-        :reduce => SUMA_REDUCE
-
-    view_by :important_ground_stats,
-        :map => SUMA_MAP % "important_ground",
-        :reduce => SUMA_REDUCE
-
+    }
 
     # starts questionnaire
     def start

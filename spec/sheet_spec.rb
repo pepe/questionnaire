@@ -107,20 +107,20 @@ describe "Sheet" do
           "frequency_other" => "jak rikam",
           "relation" => "none",
           "time_spent" => "questionnaire[time_spent]",
-          "purpose_gathering" => (i%5) + 1,
-          "purpose_hobbitry" => (i%5) + 1,
-          "purpose_fuel" => (i%5) + 1,
-          "purpose_relaxation" => (i%5) + 1,
+          "purpose_gathering" => (i%4) + 1,
+          "purpose_hobbitry" => (i%4) + 1,
+          "purpose_fuel" => (i%4) + 1,
+          "purpose_relaxation" => (i%4) + 1,
           "favorite_place" => "questionnaire[favorite_place]",
           "once_receive" => "10",
           "once_payment" => "10",
-          "important_nature" => (i%5) + 1,
-          "important_wood" => (i%5) + 1,
-          "important_gathering" => (i%5) + 1,
-          "important_water" => (i%5) + 1,
-          "important_climate" => (i%5) + 1,
-          "important_health" => (i%5) + 1,
-          "important_ground" => (i%5) + 1,
+          "important_nature" => (i%4) + 1,
+          "important_wood" => (i%4) + 1,
+          "important_gathering" => (i%4) + 1,
+          "important_water" => (i%4) + 1,
+          "important_climate" => (i%4) + 1,
+          "important_health" => (i%4) + 1,
+          "important_ground" => (i%4) + 1,
           "finished_at" => Time.now - (i * 60)
         })
       }
@@ -131,50 +131,18 @@ describe "Sheet" do
       stats.should_not be_nil
       stats['vůbec'].should == 3
       stats['1 ročně'].should == 2
-      stats = Questionnaire::Sheet.sumas_for(:purpose_gathering)
-      stats.should_not be_nil
-      stats[1].should == 1
-      stats[2].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:purpose_hobbitry)
-      stats.should_not be_nil
-      stats[3].should == 1
-      stats[5].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:purpose_fuel)
-      stats.should_not be_nil
-      stats[3].should == 1
-      stats[5].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:purpose_relaxation)
-      stats.should_not be_nil
-      stats[3].should == 1
-      stats[5].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_nature)
-      stats.should_not be_nil
-      stats[3].should == 1
-      stats[2].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_wood)
-      stats.should_not be_nil
-      stats[3].should == 1
-      stats[1].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_gathering)
-      stats.should_not be_nil
-      stats[2].should == 1
-      stats[4].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_water)
-      stats.should_not be_nil
-      stats[3].should == 1
-      stats[1].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_climate)
-      stats.should_not be_nil
-      stats[2].should == 1
-      stats[3].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_health)
-      stats.should_not be_nil
-      stats[2].should == 1
-      stats[1].should == 1
-      stats = Questionnaire::Sheet.sumas_for(:important_ground)
-      stats.should_not be_nil
-      stats[1].should == 1
-      stats[4].should == 1
+      %w(purpose_hobbitry purpose_gathering purpose_relaxation
+      purpose_fuel important_nature important_wood important_gathering 
+      important_water important_climate important_health
+      important_ground).each {|attribute|
+        stats = Questionnaire::Sheet.sumas_for(attribute.to_sym)
+        stats.should_not be_nil
+        stats[1].should == 2
+        stats[2].should == 1
+        stats[3].should == 1
+        stats[4].should == 1
+        stats[5].should be_nil
+      }
     end
   end
 end
