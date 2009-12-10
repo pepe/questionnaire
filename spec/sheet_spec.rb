@@ -2,7 +2,11 @@ require 'spec/spec_helper'
 require 'app/model/sheet'
 require 'ruby-debug'
 describe "Sheet" do
-  context "Initialization" do
+  before(:all) do
+    Questionnaire::Database.connection.recreate!
+  end
+
+  describe "Initialization" do
     it "should inialize new sheet" do
       Questionnaire::Sheet.new
     end
@@ -20,8 +24,7 @@ describe "Sheet" do
       sheet.started_at.should < Time.now
     end
   end
-
-  context "Filling methods" do
+  describe "Filling methods" do
     before(:each) do
       @sheet = Questionnaire::Sheet.new
     end
@@ -59,11 +62,9 @@ describe "Sheet" do
       @sheet.update_attributes({:note => 'note'})
     end
   end
-
-  context "Views" do
-    before(:each) do
-      Questionnaire::Database.connection.recreate!
-      10.times {|i|
+  describe "Views" do
+    before(:all) do
+      5.times {|i|
         sheet = Questionnaire::Sheet.start_new
         sheet.update_attributes({"frequency" => "vůbec",
           "frequency_other" => "jak rikam",
@@ -90,12 +91,91 @@ describe "Sheet" do
 
     it "should return all finished " do
       @sheets = Questionnaire::Sheet.by_finished
-      @sheets.size.should == 10
+      @sheets.size.should == 5
     end
-
     it "should return all finished ordered by finish time" do
       @sheets = Questionnaire::Sheet.by_finished
       @sheets.sort{|a,b| a.finished_at <=> b.finished_at}.map{|q| q['_id']}.should == @sheets.map{|q| q['_id']}
     end
   end
+  describe "Statistics" do
+    before(:all) do
+      5.times {|i|
+        sheet = Questionnaire::Sheet.start_new
+        sheet.update_attributes(
+          {"frequency" => i%2 == 1 ? "1 ročně" : "vůbec",
+          "frequency_other" => "jak rikam",
+          "relation" => "none",
+          "time_spent" => "questionnaire[time_spent]",
+          "purpose_gathering" => (i%5) + 1,
+          "purpose_hobbitry" => (i%5) + 1,
+          "purpose_fuel" => (i%5) + 1,
+          "purpose_relaxation" => (i%5) + 1,
+          "favorite_place" => "questionnaire[favorite_place]",
+          "once_receive" => "10",
+          "once_payment" => "10",
+          "important_nature" => (i%5) + 1,
+          "important_wood" => (i%5) + 1,
+          "important_gathering" => (i%5) + 1,
+          "important_water" => (i%5) + 1,
+          "important_climate" => (i%5) + 1,
+          "important_health" => (i%5) + 1,
+          "important_ground" => (i%5) + 1,
+          "finished_at" => Time.now - (i * 60)
+        })
+      }
+    end
+
+    it "should return occurence of each frequency" do
+      stats = Questionnaire::Sheet.sumas_for(:frequency)
+      stats.should_not be_nil
+      stats['vůbec'].should == 3
+      stats['1 ročně'].should == 2
+      stats = Questionnaire::Sheet.sumas_for(:purpose_gathering)
+      stats.should_not be_nil
+      stats[1].should == 1
+      stats[2].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:purpose_hobbitry)
+      stats.should_not be_nil
+      stats[3].should == 1
+      stats[5].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:purpose_fuel)
+      stats.should_not be_nil
+      stats[3].should == 1
+      stats[5].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:purpose_relaxation)
+      stats.should_not be_nil
+      stats[3].should == 1
+      stats[5].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_nature)
+      stats.should_not be_nil
+      stats[3].should == 1
+      stats[2].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_wood)
+      stats.should_not be_nil
+      stats[3].should == 1
+      stats[1].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_gathering)
+      stats.should_not be_nil
+      stats[2].should == 1
+      stats[4].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_water)
+      stats.should_not be_nil
+      stats[3].should == 1
+      stats[1].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_climate)
+      stats.should_not be_nil
+      stats[2].should == 1
+      stats[3].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_health)
+      stats.should_not be_nil
+      stats[2].should == 1
+      stats[1].should == 1
+      stats = Questionnaire::Sheet.sumas_for(:important_ground)
+      stats.should_not be_nil
+      stats[1].should == 1
+      stats[4].should == 1
+    end
+  end
 end
+
