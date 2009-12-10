@@ -1,21 +1,22 @@
 %h1 Děkujeme za Vaše podněty a názory.
 
-%p
-  Unikátní kód Vašeho dotazníku je:
-  = params[:uid]
-  %br
-  %a{:href => "/print/#{params[:uid]}"} Verze k tisku
-%form{:action => "/save_final/#{params[:uid]}", :method => :post}
-  %p Děkujeme za Váš čas, který jste věnovali vyplnění tohoto dotazníku. V případě, že byste rádi jakýmkoliv způsobem okomentovali dotazník a tím se podíleli na jeho budoucím zkvalitnění, máte prostor níže.
-  %br
-  %label{:for => 'note'} Komentář
-  %br
-  %textarea{:id => 'note', :name => 'questionnaire[note]'}
-  %br
-  %p Pokud budete mít zájem o zaslání výsledků tohoto průzkumu, vypište prosím níže Vaši emailovou adresu. Výsledky Vám budou zaslány po závěrečném zpracování dat. Průzkum je zcela anonymní, Vaše emailová adresa nebude použita pro žádné jiné účely.
-  %br
-  %label{:for => 'email'} email
-  %br
-  %input{:id => 'email', :name => 'questionnaire[email]'}
-  %br
-  %input{:id => :submit, :name => 'submit', :type => 'submit', :value => 'Dokončit dotazník a přejít na úvodní stránku'}
+#wrapper
+  %p
+    Unikátní kód Vašeho dotazníku je:
+    = params[:uid]
+    %br
+    %a{:href => "/print/#{params[:uid]}"} Verze k tisku
+  %form{:action => "/save_final/#{params[:uid]}", :method => :post}
+    %p Děkujeme za Váš čas, který jste věnovali vyplnění tohoto dotazníku. V případě, že byste rádi jakýmkoliv způsobem okomentovali dotazník a tím se podíleli na jeho budoucím zkvalitnění, máte prostor níže.
+    %br
+    %label{:for => 'note'} Komentář
+    %br
+    %textarea{:id => 'note', :name => 'questionnaire[note]'}
+    %br
+    %p Pokud budete mít zájem o zaslání výsledků tohoto průzkumu, vypište prosím níže Vaši emailovou adresu. Výsledky Vám budou zaslány po závěrečném zpracování dat. Průzkum je zcela anonymní, Vaše emailová adresa nebude použita pro žádné jiné účely.
+    %br
+    %label{:for => 'email'} email
+    %br
+    %input{:id => 'email', :name => 'questionnaire[email]'}
+    %p
+      %input{:id => :submit, :name => 'submit', :type => 'submit', :value => 'Dokončit dotazník a přejít na úvodní stránku'}

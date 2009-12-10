@@ -1,9 +1,10 @@
 %h1 Výpis všech dotazníků
 
 
-%h2= "Počet dotazníků v systému: %i" % @questionnaires.size
 
-%ol
-  - @questionnaires.each do |questionnaire|
-    %li
-      = "%s vyplněn v %s" % [link_to(questionnaire), questionnaire.started_at.strftime("%F %T")]
+#wrapper
+  %h2= "Počet dotazníků v systému: %i" % @questionnaires.size
+  %ol
+    - @questionnaires.each do |questionnaire|
+      %li
+        = "%s vyplněn v %s" % [link_to(questionnaire), questionnaire.started_at.strftime("%F %T")]

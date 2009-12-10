@@ -1,34 +1,36 @@
 %h1 Vyplněný dotazník
 = params[:uid]
-%p
-  ="Začátek: %s" % @questionnaire.started_at.strftime("%F %T")
-  ="Konec: %s" % @questionnaire.finished_at.strftime("%F %T")
-%p
-  = "Jak často navštěvujete les v průměru ročně: %s" % @questionnaire.frequency
-%p
-  = "Jak dlouhou dobu obvykle trávíte návštěvou lesa: %s" % @questionnaire.time_spent
-%p
-  Za jakým účelem obvykle navštěvujete les:
-  %ul
-    %li= "pro duševní a fyzickou relaxaci, rekreaci: %s" % @questionnaire.purpose_relaxation
-    %li= "pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.): %s" % @questionnaire.purpose_hobbitry
-    %li= "pro sběr lesních plodin (včetně léčivých rostlin): %s" % @questionnaire.purpose_gathering
-    %li= "pro sběr paliva: %s" % @questionnaire.purpose_fuel
-%p
-  = "Které je Vaše oblíbené území lesa: %s" % @questionnaire.favorite_place
-%p
-  = "Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali: %s" % @questionnaire.once_payment
-%p
-  = "Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa: %s" % @questionnaire.once_receive
-%p
-  Jaká je podle vás významnost funkcí lesa v České republice:
-  %ul
-    %li= "produkce a využití dříví: %s" % @questionnaire.important_wood
-    %li= "produkce a sběr lesních plodin (včetně hub a léčivých rostlin): %s" % @questionnaire.important_water
-    %li= "vodohospodářské funkce: %s" % @questionnaire.important_water
-    %li= "půdoochranné funkce: %s" % @questionnaire.important_ground
-    %li= "klimatické funkce: %s" % @questionnaire.important_climate
-    %li= "zdravotně hygienické funkce (rekreační, zdravotní): %s" % @questionnaire.important_health
-    %li= "přírodoochranné funkce: %s" % @questionnaire.important_nature
-%p
-  = "Jaký je váš vztah k České zemědělské univerzitě v Praze: %s" % @questionnaire.relation
+
+#wrapper
+  %p
+    ="Začátek: %s" % @questionnaire.started_at.strftime("%F %T")
+    ="Konec: %s" % @questionnaire.finished_at.strftime("%F %T")
+  %p
+    = "Jak často navštěvujete les v průměru ročně: %s" % @questionnaire.frequency
+  %p
+    = "Jak dlouhou dobu obvykle trávíte návštěvou lesa: %s" % @questionnaire.time_spent
+  %p
+    Za jakým účelem obvykle navštěvujete les:
+    %ul
+      %li= "pro duševní a fyzickou relaxaci, rekreaci: %s" % @questionnaire.purpose_relaxation
+      %li= "pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.): %s" % @questionnaire.purpose_hobbitry
+      %li= "pro sběr lesních plodin (včetně léčivých rostlin): %s" % @questionnaire.purpose_gathering
+      %li= "pro sběr paliva: %s" % @questionnaire.purpose_fuel
+  %p
+    = "Které je Vaše oblíbené území lesa: %s" % @questionnaire.favorite_place
+  %p
+    = "Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali: %s" % @questionnaire.once_payment
+  %p
+    = "Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa: %s" % @questionnaire.once_receive
+  %p
+    Jaká je podle vás významnost funkcí lesa v České republice:
+    %ul
+      %li= "produkce a využití dříví: %s" % @questionnaire.important_wood
+      %li= "produkce a sběr lesních plodin (včetně hub a léčivých rostlin): %s" % @questionnaire.important_water
+      %li= "vodohospodářské funkce: %s" % @questionnaire.important_water
+      %li= "půdoochranné funkce: %s" % @questionnaire.important_ground
+      %li= "klimatické funkce: %s" % @questionnaire.important_climate
+      %li= "zdravotně hygienické funkce (rekreační, zdravotní): %s" % @questionnaire.important_health
+      %li= "přírodoochranné funkce: %s" % @questionnaire.important_nature
+  %p
+    = "Jaký je váš vztah k České zemědělské univerzitě v Praze: %s" % @questionnaire.relation

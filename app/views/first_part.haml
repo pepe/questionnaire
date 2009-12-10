@@ -1,55 +1,56 @@
 %h1 Dotazník I. část
 
-%form{:action => "/save_first/#{params[:uid]}", :method => :post}
-  %ol
-    %li
-      %h2 Jak často navštěvujete les v průměru ročně?
-      %input{:id => 'frequency_none', :name => 'questionnaire[frequency]', :type => :radio, :value => 'vůbec'}
-      %label{:for => 'frequency_none'} vůbec
-      %br
-      %input{:id => 'frequency_yearly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 až 2 x ročně'}
-      %label{:for => 'frequency_yearly'} 1 až 2 x ročně
-      %br
-      %input{:id => 'frequency_monthly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 x měsíčně'}
-      %label{:for => 'frequency_monthly'} 1 x měsíčně
-      %br
-      %input{:id => 'frequency_weekly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 x týdně'}
-      %label{:for => 'frequency_weekly'} 1 x týdně
-      %br
-      %input{:id => 'frequency_daily', :name => 'questionnaire[frequency]', :type => :radio, :value => '2 až 3 x týdně'}
-      %label{:for => 'frequency_daily'} 2 až 3 x týdně
-      %br
-      %label{:for => 'frequency_other'} Jinak často
-      %input{:id => 'frequency_other', :name => 'questionnaire[frequency_other]', :type => :text}
-      prosím vypište
-    %li
-      %h2 Jak dlouhou dobu obvykle trávíte návštěvou lesa?
-      prosím vypište
-      %input{:id => 'time_spent', :name => 'questionnaire[time_spent]', :type => :text}
-      %label{:for => 'time_spent'} hodin
-    %li
-      %h2 Za jakým účelem obvykle navštěvujete les?
-      prosím určete významnost od nejvyšší 5 po nejnižší 1
-      %br
-      %select{:id => :purpose_relaxation, :name => 'questionnaire[purpose_relaxation]'}
-        = five_options
-      pro duševní a fyzickou relaxaci, rekreaci
-      %br
-      %select{:id => :purpose_hobbitry, :name => 'questionnaire[purpose_hobbitry]'}
-        = five_options
-      pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.)
-      %br
-      %select{:id => :purpose_gathering, :name => 'questionnaire[purpose_gathering]'}
-        = five_options
-      pro sběr lesních plodin (včetně léčivých rostlin)
-      %br
-      %select{:id => :purpose_fuel, :name => 'questionnaire[purpose_fuel]'}
-        = five_options
-      pro sběr paliva
-    %li
-      %h2 Které je Vaše oblíbené území lesa?
-      prosím vypište
-      %input{:id => :favorite_place, :name => 'questionnaire[favorite_place]'}
+#wrapper
+  %form{:action => "/save_first/#{params[:uid]}", :method => :post}
+    %ol
+      %li
+        %h2 Jak často navštěvujete les v průměru ročně?
+        %input{:id => 'frequency_none', :name => 'questionnaire[frequency]', :type => :radio, :value => 'vůbec'}
+        %label{:for => 'frequency_none'} vůbec
+        %br
+        %input{:id => 'frequency_yearly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 až 2 x ročně'}
+        %label{:for => 'frequency_yearly'} 1 až 2 x ročně
+        %br
+        %input{:id => 'frequency_monthly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 x měsíčně'}
+        %label{:for => 'frequency_monthly'} 1 x měsíčně
+        %br
+        %input{:id => 'frequency_weekly', :name => 'questionnaire[frequency]', :type => :radio, :value => '1 x týdně'}
+        %label{:for => 'frequency_weekly'} 1 x týdně
+        %br
+        %input{:id => 'frequency_daily', :name => 'questionnaire[frequency]', :type => :radio, :value => '2 až 3 x týdně'}
+        %label{:for => 'frequency_daily'} 2 až 3 x týdně
+        %br
+        %label{:for => 'frequency_other'} Jinak často
+        %input{:id => 'frequency_other', :name => 'questionnaire[frequency_other]', :type => :text}
+        prosím vypište
+      %li
+        %h2 Jak dlouhou dobu obvykle trávíte návštěvou lesa?
+        prosím vypište
+        %input{:id => 'time_spent', :name => 'questionnaire[time_spent]', :type => :text}
+        %label{:for => 'time_spent'} hodin
+      %li
+        %h2 Za jakým účelem obvykle navštěvujete les?
+        prosím určete významnost od nejvyšší 5 po nejnižší 1
+        %br
+        %select{:id => :purpose_relaxation, :name => 'questionnaire[purpose_relaxation]'}
+          = five_options
+        pro duševní a fyzickou relaxaci, rekreaci
+        %br
+        %select{:id => :purpose_hobbitry, :name => 'questionnaire[purpose_hobbitry]'}
+          = five_options
+        pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.)
+        %br
+        %select{:id => :purpose_gathering, :name => 'questionnaire[purpose_gathering]'}
+          = five_options
+        pro sběr lesních plodin (včetně léčivých rostlin)
+        %br
+        %select{:id => :purpose_fuel, :name => 'questionnaire[purpose_fuel]'}
+          = five_options
+        pro sběr paliva
+      %li
+        %h2 Které je Vaše oblíbené území lesa?
+        prosím vypište
+        %input{:id => :favorite_place, :name => 'questionnaire[favorite_place]'}
 
-  %input{:id => :submit, :name => 'submit', :type => 'submit', :value => 'Odeslat I. část'}
+    %input{:id => :submit, :name => 'submit', :type => 'submit', :value => 'Odeslat I. část'}
 
