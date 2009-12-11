@@ -42,4 +42,3 @@ end
 Given /^I know 2 questionnaires were filled in$/ do
   2.times {Given "I fill in both parts of questionnaire"}
 end
-
