@@ -64,34 +64,12 @@ describe "Sheet" do
   end
   describe "Views" do
     before(:all) do
-      5.times {|i|
-        sheet = Questionnaire::Sheet.start_new
-        sheet.update_attributes({"frequency" => "vůbec",
-          "frequency_other" => "jak rikam",
-          "relation" => "none",
-          "time_spent" => "questionnaire[time_spent]",
-          "purpose_gathering" => "5",
-          "purpose_hobbitry" => "5",
-          "purpose_fuel" => "5",
-          "purpose_relaxation" => "5",
-          "favorite_place" => "questionnaire[favorite_place]",
-          "once_receive" => "10",
-          "once_payment" => "10",
-          "important_nature" => "5",
-          "important_wood" => "5",
-          "important_gathering" => "5",
-          "important_water" => "5",
-          "important_climate" => "5",
-          "important_health" => "5",
-          "important_ground" => "5",
-          "finished_at" => Time.now - (i * 60)
-        })
-      }
+      random_sheets
     end
 
     it "should return all finished " do
       @sheets = Questionnaire::Sheet.by_finished
-      @sheets.size.should == 5
+      @sheets.size.should == 2
     end
     it "should return all finished ordered by finish time" do
       @sheets = Questionnaire::Sheet.by_finished
@@ -100,37 +78,14 @@ describe "Sheet" do
   end
   describe "Statistics" do
     before(:all) do
-      5.times {|i|
-        sheet = Questionnaire::Sheet.start_new
-        sheet.update_attributes(
-          {"frequency" => i%2 == 1 ? "1 ročně" : "vůbec",
-          "frequency_other" => "jak rikam",
-          "relation" => "none",
-          "time_spent" => "questionnaire[time_spent]",
-          "purpose_gathering" => (i%4) + 1,
-          "purpose_hobbitry" => (i%4) + 1,
-          "purpose_fuel" => (i%4) + 1,
-          "purpose_relaxation" => (i%4) + 1,
-          "favorite_place" => "questionnaire[favorite_place]",
-          "once_receive" => "10",
-          "once_payment" => "10",
-          "important_nature" => (i%4) + 1,
-          "important_wood" => (i%4) + 1,
-          "important_gathering" => (i%4) + 1,
-          "important_water" => (i%4) + 1,
-          "important_climate" => (i%4) + 1,
-          "important_health" => (i%4) + 1,
-          "important_ground" => (i%4) + 1,
-          "finished_at" => Time.now - (i * 60)
-        })
-      }
+      random_sheets(:amount => 5)
     end
 
     it "should return occurence of each frequency" do
       stats = Questionnaire::Sheet.sumas_for(:frequency)
       stats.should_not be_nil
       stats['vůbec'].should == 3
-      stats['1 ročně'].should == 2
+      stats['1 až 2 x ročně'].should == 2
       %w(purpose_hobbitry purpose_gathering purpose_relaxation
       purpose_fuel important_nature important_wood important_gathering 
       important_water important_climate important_health
