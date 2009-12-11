@@ -1,0 +1,9 @@
+%h1 Statistika dotazníku
+
+#wrapper
+  %ol
+    %li
+      Jak často navštěvujete les v průměru ročně
+      %ol
+        - @stats[:frequency].each_pair do |key, value|
+          %li= "%s: %s" % [key, value]

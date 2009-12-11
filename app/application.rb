@@ -72,5 +72,10 @@ module Questionnaire
       @questionnaires = Sheet.by_finished
       haml :list
     end
+
+    get '/stats' do
+      @stats = {:frequency => Questionnaire::Sheet.sumas_for(:frequency)}
+      haml :stats
+    end
   end
 end

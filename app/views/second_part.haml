@@ -2,7 +2,7 @@
 
 #wrapper
   %form{:action => "/save_second/#{params[:uid]}", :method => :post}
-    %ol
+    %ol{:start => "5"}
       %li
         %h2 Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali?
         %input{:id => 'once_payment', :name => 'questionnaire[once_payment]',

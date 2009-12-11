@@ -91,5 +91,10 @@ describe Questionnaire::Application do
       get '/list'     
       last_response.should be_ok
     end
+
+    it "should render page with simple statistics" do
+      get '/stats'
+      last_response.should be_ok
+    end
   end
 end
