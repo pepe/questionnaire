@@ -1,0 +1,10 @@
+deploy.template = :sinatra
+deploy.application = "inploy"
+deploy.repository = 'git://github.com/pepe/inploy.git'
+deploy.user = 'deployer'
+deploy.hosts = ['bigbad']
+deploy.path = '/usr/www/apps'
+
+# optional advanced settings
+# deploy.ssh_opts = '-p 2222'
+# deploy.branch = 'deploy'
