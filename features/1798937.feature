@@ -11,3 +11,17 @@ Feature: Create page with simple statistics
     And I should see 'Jak často navštěvujete les v průměru ročně'
     And I should see 'vůbec:' followed by number
     And I should see '1 až 2 x ročně:' followed by number  
+    And I should see 'Za jakým účelem obvykle navštěvujete les'
+    And I should see 'pro duševní a fyzickou relaxaci, rekreaci'
+    And I should see 'pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.)'
+    And I should see 'pro sběr lesních plodin (včetně léčivých rostlin)'
+    And I should see 'pro sběr paliva'
+    And I should see 'Jaká je podle vás významnost funkcí lesa v České republice?'
+    And I should see 'produkce a využití dříví'
+    And I should see 'produkce a sběr lesních plodin (včetně hub a léčivých rostlin)'
+    And I should see 'vodohospodářské funkce'
+    And I should see 'půdoochranné funkce'
+    And I should see 'klimatické funkce'
+    And I should see 'přírodoochranné funkce'
+    And I should see 'Jaký je váš vztah k České zemědělské univerzitě v Praze'
+    And I should see 'jsem student/studentka'

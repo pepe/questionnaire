@@ -100,5 +100,9 @@ a.button {
 }
 
 p {
-  margin-bottom: 10;}
+  margin-bottom: 10;
 }
+
+ol.print li {
+  font-size: 18px;
+  margin: 0}

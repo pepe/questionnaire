@@ -12,6 +12,18 @@ module Questionnaire
     set :views, File.join(QUESTIONNAIRE_ROOT, 'app', 'views')
 
     helpers do
+
+      # returns occurence and percents for stats
+      def occurence_and_percents(stat)
+        res = ''
+        @stats[stat].each_pair {|key, value|
+           unless key == 'all'
+             res << "<li>%s: %s (%s%%)</li>\n" % 
+               [key, value, (value/@stats[stat]['all'].to_f) *100]
+           end
+        }
+        return res
+      end
       # returns five reversed options 
       def five_options
         (1..5).map do |i|
@@ -74,7 +86,20 @@ module Questionnaire
     end
 
     get '/stats' do
-      @stats = {:frequency => Questionnaire::Sheet.sumas_for(:frequency)}
+      @stats = {:frequency => Questionnaire::Sheet.sumas_for(:frequency),
+                :purpose_relaxation => Questionnaire::Sheet.sumas_for(:purpose_relaxation),
+                :purpose_fuel => Questionnaire::Sheet.sumas_for(:purpose_fuel),
+                :purpose_gathering => Questionnaire::Sheet.sumas_for(:purpose_gathering),
+                :purpose_hobbitry => Questionnaire::Sheet.sumas_for(:purpose_hobbitry),
+                :important_wood => Questionnaire::Sheet.sumas_for(:important_wood),
+                :important_nature => Questionnaire::Sheet.sumas_for(:important_nature),
+                :important_ground => Questionnaire::Sheet.sumas_for(:important_ground),
+                :important_climate => Questionnaire::Sheet.sumas_for(:important_climate),
+                :important_gathering => Questionnaire::Sheet.sumas_for(:important_gathering),
+                :important_health => Questionnaire::Sheet.sumas_for(:important_health),
+                :important_water => Questionnaire::Sheet.sumas_for(:important_water),
+                :relation => Questionnaire::Sheet.sumas_for(:relation)
+      }
       haml :stats
     end
   end

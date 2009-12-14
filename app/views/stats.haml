@@ -1,9 +1,80 @@
 %h1 Statistika dotazníku
 
 #wrapper
-  %ol
+  %ol.print
     %li
       Jak často navštěvujete les v průměru ročně
       %ol
         - @stats[:frequency].each_pair do |key, value|
+          - unless key == 'all'
+            %li= "%s: %s (%s)" % [key, value, (value/@stats[:frequency]['all'].to_f) *100]
+            
+
+    %li
+      Za jakým účelem obvykle navštěvujete les
+      %ol
+        %li
+          pro duševní a fyzickou relaxaci, rekreaci 
+          %ul
+            = occurence_and_percents(:purpose_relaxation)
+        %li
+          pro zájmovou činnost (sport, příroda, myslivost, poznávání apod.)
+          %ul
+            - @stats[:purpose_hobbitry].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          pro sběr lesních plodin (včetně léčivých rostlin)
+          %ul
+            - @stats[:purpose_gathering].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          pro sběr paliva
+          %ul
+            - @stats[:purpose_fuel].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+
+    %li
+      Jaká je podle vás významnost funkcí lesa v České republice? 
+      %ol
+        %li
+          produkce a využití dříví
+          %ul
+            - @stats[:important_wood].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          produkce a sběr lesních plodin (včetně hub a léčivých rostlin)
+          %ul
+            - @stats[:important_gathering].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          vodohospodářské funkce
+          %ul
+            - @stats[:important_water].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          půdoochranné funkce
+          %ul
+            - @stats[:important_ground].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          klimatické funkce
+          %ul
+            - @stats[:important_climate].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          zdravotně hygienické funkce (rekreační, zdravotní)
+          %ul
+            - @stats[:important_health].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+        %li
+          přírodoochranné funkce
+          %ul
+            - @stats[:important_nature].each_pair do |key, value|
+              %li= "%s: %s" % [key, value]
+
+    %li
+      %ol 
+        Jaký je váš vztah k České zemědělské univerzitě v Praze
+        - @stats[:relation].each_pair do |key, value|
           %li= "%s: %s" % [key, value]
+
