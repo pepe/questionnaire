@@ -44,11 +44,11 @@ module Questionnaire
     %w(frequency purpose_hobbitry purpose_gathering purpose_relaxation
     purpose_fuel important_nature important_wood important_gathering 
     important_water important_climate important_health
-    important_ground).each {|attribute|
+    important_ground relation).each {|attribute|
       view_by :"#{attribute}_stats",
         :map => SUMA_MAP % attribute,
         :reduce => SUMA_REDUCE
-    }
+          }
 
     # starts questionnaire
     def start
@@ -70,8 +70,11 @@ module Questionnaire
       # returns statistics array for parameter
       def sumas_for(attribute)
         stats = send("by_%s_stats" % attribute, :reduce => true, :group => true)
-        h = {}
-        stats['rows'].each {|s| h[s['key']] = s['value']}
+        h = {'all' => 0}
+        stats['rows'].each {|s|
+          h[s['key']] = s['value']
+          h['all'] += s['value']
+        }
         return h
       end
     end

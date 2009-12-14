@@ -42,7 +42,7 @@ describe "Sheet" do
       @sheet.update_attributes(
         {"frequency" => "vůbec",
         "frequency_other" => "jak rikam",
-        "relation" => "none",
+        "relation" => "žádný",
         "time_spent" => "questionnaire[time_spent]",
         "purpose_gathering" => "5",
         "purpose_hobbitry" => "5",
@@ -86,6 +86,7 @@ describe "Sheet" do
       stats.should_not be_nil
       stats['vůbec'].should == 3
       stats['1 až 2 x ročně'].should == 2
+      stats['all'].should == 5
       %w(purpose_hobbitry purpose_gathering purpose_relaxation
       purpose_fuel important_nature important_wood important_gathering 
       important_water important_climate important_health
@@ -98,6 +99,9 @@ describe "Sheet" do
         stats[4].should == 1
         stats[5].should be_nil
       }
+      stats = Questionnaire::Sheet.sumas_for(:relation)
+      stats.should_not be_nil
+      stats['žádný'].should == 5
     end
   end
 end
