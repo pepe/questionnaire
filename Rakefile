@@ -4,6 +4,7 @@ require 'rake'
 require 'spec/rake/spectask'
 require 'cucumber/rake/task'
 require 'app/application'
+require 'spec/spec_helper'
 
 desc "Runs all specs"
 task :default => 'test:spec'
@@ -17,32 +18,8 @@ task :bootstrap do
   Bundler.require_env
   @db = CouchRest.database!("http://127.0.0.1:5984/questionnaires")
   @db.recreate!
-  def rand_choose(i)
-    (rand(i) + 1).to_s
-  end
-  10.times {
-    sheet = Questionnaire::Sheet.start_new
-    sheet.finish
-    sheet.update_attributes({
-      "frequency" => "vůbec",
-      "important_wood" => rand_choose(5),
-      "important_gathering" => rand_choose(5),
-      "frequency_other" => "",
-      "relation" => "none",
-      "once_receive" => "10",
-      "once_payment" => "10",
-      "time_spent" => "questionnaire[time_spent]",
-      "purpose_hobbitry" => rand_choose(5),
-      "favorite_place" => "questionnaire[favorite_place]",
-      "important_ground" => rand_choose(5),
-      "important_nature" => rand_choose(5),
-      "purpose_fuel" => rand_choose(5),
-      "purpose_relaxation" => rand_choose(5),
-      "important_water" => rand_choose(5),
-      "important_climate" => rand_choose(5),
-      "important_health" => rand_choose(5),
-      "purpose_gathering" => rand_choose(5)})
-  }
+  Questionnaire::Database.environment = :net
+  random_sheets(:amount => 10)
 end
 
 namespace :test do
