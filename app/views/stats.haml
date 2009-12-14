@@ -8,7 +8,19 @@
         - @stats[:frequency].each_pair do |key, value|
           - unless key == 'all'
             %li= "%s: %s (%s)" % [key, value, (value/@stats[:frequency]['all'].to_f) *100]
-            
+
+    %li
+      Jak dlouhou dobu obvykle trávíte návštěvou lesa?
+      %ul
+        %li
+          min:
+          = @stats[:time_spent]['min']
+        %li
+          max:
+          = @stats[:time_spent]['max']
+        %li
+          avg:
+          = @stats[:time_spent]['avg']
 
     %li
       Za jakým účelem obvykle navštěvujete les
@@ -29,6 +41,32 @@
           pro sběr paliva
           %ul
             = occurence_and_percents(:purpose_fuel)
+
+    %li
+      Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali 
+      %ul
+        %li
+          min:
+          = @stats[:once_payment]['min']
+        %li
+          max:
+          = @stats[:once_payment]['max']
+        %li
+          avg:
+          = @stats[:once_payment]['avg']
+
+    %li
+      Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa?
+      %ul
+        %li
+          min:
+          = @stats[:once_receive]['min']
+        %li
+          max:
+          = @stats[:once_receive]['max']
+        %li
+          avg:
+          = @stats[:once_receive]['avg']
 
     %li
       Jaká je podle vás významnost funkcí lesa v České republice? 

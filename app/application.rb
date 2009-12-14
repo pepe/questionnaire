@@ -6,6 +6,7 @@ require 'app/model/sheet'
 module Questionnaire
   QUESTIONNAIRE_ROOT = File.join(File.expand_path(File.dirname(__FILE__)), '..') unless defined?(QUESTIONNAIRE_ROOT)
   class Application < Sinatra::Base
+    include Questionnaire
     enable :static, :sessions
     set :root, QUESTIONNAIRE_ROOT
     set :public, File.join(QUESTIONNAIRE_ROOT, 'public')
@@ -86,19 +87,22 @@ module Questionnaire
     end
 
     get '/stats' do
-      @stats = {:frequency => Questionnaire::Sheet.sumas_for(:frequency),
-                :purpose_relaxation => Questionnaire::Sheet.sumas_for(:purpose_relaxation),
-                :purpose_fuel => Questionnaire::Sheet.sumas_for(:purpose_fuel),
-                :purpose_gathering => Questionnaire::Sheet.sumas_for(:purpose_gathering),
-                :purpose_hobbitry => Questionnaire::Sheet.sumas_for(:purpose_hobbitry),
-                :important_wood => Questionnaire::Sheet.sumas_for(:important_wood),
-                :important_nature => Questionnaire::Sheet.sumas_for(:important_nature),
-                :important_ground => Questionnaire::Sheet.sumas_for(:important_ground),
-                :important_climate => Questionnaire::Sheet.sumas_for(:important_climate),
-                :important_gathering => Questionnaire::Sheet.sumas_for(:important_gathering),
-                :important_health => Questionnaire::Sheet.sumas_for(:important_health),
-                :important_water => Questionnaire::Sheet.sumas_for(:important_water),
-                :relation => Questionnaire::Sheet.sumas_for(:relation)
+      @stats = {:frequency => Sheet.sumas_for(:frequency),
+                :purpose_relaxation => Sheet.sumas_for(:purpose_relaxation),
+                :purpose_fuel => Sheet.sumas_for(:purpose_fuel),
+                :purpose_gathering => Sheet.sumas_for(:purpose_gathering),
+                :purpose_hobbitry => Sheet.sumas_for(:purpose_hobbitry),
+                :important_wood => Sheet.sumas_for(:important_wood),
+                :important_nature => Sheet.sumas_for(:important_nature),
+                :important_ground => Sheet.sumas_for(:important_ground),
+                :important_climate => Sheet.sumas_for(:important_climate),
+                :important_gathering => Sheet.sumas_for(:important_gathering),
+                :important_health => Sheet.sumas_for(:important_health),
+                :important_water => Sheet.sumas_for(:important_water),
+                :relation => Sheet.sumas_for(:relation),
+                :time_spent => Sheet.minmax_for(:time_spent),
+                :once_payment => Sheet.minmax_for(:once_payment),
+                :once_receive => Sheet.minmax_for(:once_payment) 
       }
       haml :stats
     end

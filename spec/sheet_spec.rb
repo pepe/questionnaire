@@ -81,7 +81,7 @@ describe "Sheet" do
       random_sheets(:amount => 5)
     end
 
-    it "should return occurence of each frequency" do
+    it "should compute occurences of range attributes" do
       stats = Questionnaire::Sheet.sumas_for(:frequency)
       stats.should_not be_nil
       stats['vůbec'].should == 3
@@ -102,6 +102,23 @@ describe "Sheet" do
       stats = Questionnaire::Sheet.sumas_for(:relation)
       stats.should_not be_nil
       stats['žádný'].should == 5
+    end
+    it "should compute min/max/average for value attributes" do
+      stat = Questionnaire::Sheet.minmax_for(:time_spent)
+      stat.should_not be_nil
+      stat['min'].should == 10
+      stat['max'].should == 50
+      stat['avg'].should == 30
+      stat = Questionnaire::Sheet.minmax_for(:once_receive)
+      stat.should_not be_nil
+      stat['min'].should == 20
+      stat['max'].should == 100
+      stat['avg'].should == 60
+      stat = Questionnaire::Sheet.minmax_for(:once_payment)
+      stat.should_not be_nil
+      stat['min'].should == 30
+      stat['max'].should == 150
+      stat['avg'].should == 90
     end
   end
 end
