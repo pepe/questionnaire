@@ -1,7 +1,11 @@
 require 'spec/spec_helper'
 require File.join(File.dirname(__FILE__), '..', '..', 'app', 'application')
 
-Bundler.require_env :test
+require "rubygems"
+require "bundler"
+Bundler.setup
+require 'webrat'
+
 
 Webrat.configure do |config|
   config.mode = :rack

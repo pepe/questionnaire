@@ -54,17 +54,19 @@ input#submit {
   -moz-border-radius: 15px;
 	-webkit-border-radius: 15px;  
 	margin-left: auto;
-	margin-right: auto;
+	margin-righ: auto;
 	font-weight: bold;
   display: block;
   border: none;
 }
 a.button {
-  background-color: black;
+  background-color: #006535;
   color: white;
   padding: 8px;
-  -moz-border-radius: 15px;
-	-webkit-border-radius: 15px;  
+  -moz-border-radius-topright: 25px;
+  -moz-border-radius-bottomright: 25px;
+	-webkit-border-top-right-radius: 25px;  
+	-webkit-border-bottom-right-radius: 25px;  
 	margin-left: auto;
 	margin-right: auto;
 	font-weight: bold;
@@ -82,4 +84,8 @@ ol.print li {
 }
 li:first-child {
   font-size: 18px
+}
+.right {
+  float: right;
+  clear: both;
 }
