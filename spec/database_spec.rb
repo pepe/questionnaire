@@ -1,4 +1,6 @@
-require 'app/lib/database'
+require 'spec/spec_helper'
+require 'couchrest'
+
 describe "Database" do
   context "retrieving connection string based on environment" do
     Questionnaire::Database.environment = :net
