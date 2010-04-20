@@ -7,7 +7,7 @@ require 'app/application'
 require 'spec/spec_helper'
 
 desc "Runs all specs"
-task :default => 'test:spec'
+task :default => 'spec'
 
 desc "Run server"
 task :start => 'server:start'
@@ -22,35 +22,36 @@ task :bootstrap do
   random_sheets(:amount => 10)
 end
 
-namespace :test do
-  Spec::Rake::SpecTask.new do |t|
-    FileUtils.rm('test') if File.exists?('test')
-    t.spec_files = FileList['spec/*_spec.rb']
-    t.spec_opts = ['-u']
-  end
-
+Spec::Rake::SpecTask.new do |t|
+  FileUtils.rm('test') if File.exists?('test')
+  t.spec_files = FileList['spec/*_spec.rb']
+  t.spec_opts = ['-u']
+end
+namespace :spec do
   Spec::Rake::SpecTask.new('rcov') do |t|
     t.rcov = true
     t.spec_files = FileList['spec/*_spec.rb']
     t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/}
   end
-  
-  Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format pretty" # Any valid command line option can go here.
-    t.rcov = true
-  end
+end
 
+Cucumber::Rake::Task.new do |t|
+  t.cucumber_opts = "--format pretty" # Any valid command line option can go here.
+  t.rcov = true
+end
+namespace :cucumber do
   Cucumber::Rake::Task.new(:cruise) do |t|
     t.cucumber_opts = "--format pretty --out=features.txt --format html --out=features.html"
     t.rcov = true
     t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/}
-    t.rcov_opts << %[-o "features_rcov"]
+    t.rcov_opts << %[-o "features_coverage"]
   end
   
+  desc 'Run Cucumber features with rcov'
   Cucumber::Rake::Task.new(:rcov) do |t|    
     t.rcov = true
     t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/}
-    t.rcov_opts << %[-o "features_rcov"]
+    t.rcov_opts << %[-o "features_coverage"]
   end
 end
 
