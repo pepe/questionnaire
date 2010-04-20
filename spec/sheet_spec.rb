@@ -1,6 +1,5 @@
 require 'spec/spec_helper'
 require 'app/model/sheet'
-require 'ruby-debug'
 describe "Sheet" do
   before(:all) do
     Questionnaire::Database.connection.recreate!

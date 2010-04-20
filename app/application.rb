@@ -1,5 +1,8 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'environment'))
-Bundler.require_env
+require "rubygems"
+require "bundler"
+Bundler.setup
+
+require 'sinatra'
 require 'app/lib/database'
 require 'app/model/sheet'
 

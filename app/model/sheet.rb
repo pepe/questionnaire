@@ -1,3 +1,4 @@
+require 'couchrest'
 require 'app/application'
 module Questionnaire
   class Sheet < CouchRest::ExtendedDocument
