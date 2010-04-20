@@ -13,7 +13,25 @@ module Questionnaire
     set :views, File.join(QUESTIONNAIRE_ROOT, 'app', 'views')
 
     helpers do
-
+      # submit button
+      def submit(opts)
+        "<input id='submit' name='submit' type='submit' value='#{opts[:value]}'/>"
+      end
+      # print radio input with label
+      def radio_input(opts)
+        "<input id='#{opts[:id]}' name='#{opts[:name]}' type=radio value='#{opts[:value]}'/>" <<
+        "<label for=#{opts[:id]}>#{opts[:value]}</label>"
+      end
+      # prints select for attribute
+      def select(opts)
+        "<select id='#{opts[:attr]}' name='questionnaire[#{opts[:attr]}]'>" <<
+          opts[:options] <<
+        "</select>"
+      end
+      # prints text input for questionnaire
+      def text_input(opts)
+        "<input id='#{opts[:attr]}' name='questionnaire[#{opts[:attr]}]' type='text'/>"
+      end
       # returns occurence and percents for stats
       def occurence_and_percents(stat)
         res = ''
@@ -27,6 +45,7 @@ module Questionnaire
       end
       # returns five reversed options 
       def five_options
+        "<option>---</option>" <<
         (1..5).map do |i|
           "<option>%i</option>" % i
         end.reverse.join(' ')

@@ -5,9 +5,7 @@
     %li
       Jak často navštěvujete les v průměru ročně
       %ol
-        - @stats[:frequency].each_pair do |key, value|
-          - unless key == 'all'
-            %li= "%s: %s (%s)" % [key, value, (value/@stats[:frequency]['all'].to_f) *100]
+        = occurence_and_percents(:frequency)
 
     %li
       Jak dlouhou dobu obvykle trávíte návštěvou lesa?

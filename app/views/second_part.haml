@@ -5,52 +5,40 @@
     %ol{:start => "5"}
       %li
         %h2 Kolik byste byli ochotni zaplatit peněz za jednorázovou návštěvu Vašeho oblíbeného lesa, aniž byste se jí vzdali?
-        %input{:id => 'once_payment', :name => 'questionnaire[once_payment]',
-            :type => :text}
+        = text_input :attr => :once_payment
       %li
         %h2 Jakou částku byste byli ochotni jednorázově přijmout výměnou za trvalé znemožnění návštěvy Vašeho oblíbeného lesa?
-        %input{:id => 'once_receive', :name => 'questionnaire[once_receive]',
-            :type => :text}
+        = text_input :attr => :once_receive
       %li
         %h2 Jaká je podle vás významnost funkcí lesa v České republice?
-        %select{:id => :important_wood, :name => 'questionnaire[important_wood]'}
-          = five_options
+        = select :attr => :important_wood, :options => five_options
         produkce a využití dříví 
         %br
-        %select{:id => :important_gathering, :name => 'questionnaire[important_gathering]'}
-          = five_options
+        = select :attr => :important_gathering, :options => five_options
         produkce a sběr lesních plodin (včetně hub a léčivých rostlin)
         %br
-        %select{:id => :important_water, :name => 'questionnaire[important_water]'}
-          = five_options
+        = select :attr => :important_water, :options => five_options
         vodohospodářské funkce
         %br
-        %select{:id => :important_ground, :name => 'questionnaire[important_ground]'}
-          = five_options
+        = select :attr => :important_ground, :options => five_options
         půdoochranné funkce
         %br
-        %select{:id => :important_climate, :name => 'questionnaire[important_climate]'}
-          = five_options
+        = select :attr => :important_climate, :options => five_options
         klimatické funkce
         %br
-        %select{:id => :important_health, :name => 'questionnaire[important_health]'}
-          = five_options
+        = select :attr => :important_health, :options => five_options
         zdravotně hygienické funkce (rekreační, zdravotní)
         %br
-        %select{:id => :important_nature, :name => 'questionnaire[important_nature]'}
-          = five_options
+        = select :attr => :important_nature, :options => five_options
         přírodoochranné funkce
         %br
       %li
         %h2 Jaký je váš vztah k České zemědělské univerzitě v Praze?
-        %input{:id => 'relation_employee', :name => 'questionnaire[relation]', :type => :radio, :value => 'jsem zaměstnanec/zaměstnankyně'}
-        %label{:for => 'relation_employee'} jsem zaměstnanec/zaměstnankyně
+        = radio_input :id => 'relation_employee', :name => 'questionnaire[relation]', :value => 'jsem zaměstnanec/zaměstnankyně'
         %br
-        %input{:id => 'relation_student', :name => 'questionnaire[relation]', :type => :radio, :value => 'jsem student/studentka'}
-        %label{:for => 'relation_student'} jsem student/studentka
+        = radio_input :id => 'relation_student', :name => 'questionnaire[relation]', :value => 'jsem student/studentka'
         %br
-        %input{:id => 'relation_none', :name => 'questionnaire[relation]', :type => :radio, :value => 'žádný'}
-        %label{:for => 'relation_none'} žádný
+        = radio_input :id => 'relation_none', :name => 'questionnaire[relation]', :value => 'žádný'
         %br
     %input{:id => :submit, :name => 'submit', :type => 'submit', :value => 'Odeslat II. část'}
 
